@@ -1,15 +1,16 @@
 import React from "react";
-import { BackgroundDiv, MainDiv } from "./styles";
+import { BackgroundDiv, NarrowDiv } from "./styles";
+import SendButton from "../../components/common/SendButton";
+import FormSection from "../../components/Login/FormSection";
 
 
 function Login() {
   return (
     <BackgroundDiv>
-      <MainDiv>
-        <p>
-          Test page
-        </p>
-      </MainDiv>
+      <NarrowDiv>
+        <FormSection />
+        <SendButton sendRequest={console.log("test")} buttonName={"Sign in"}/>
+      </NarrowDiv>
     </BackgroundDiv>
   );
 }

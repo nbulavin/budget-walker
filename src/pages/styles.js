@@ -2,16 +2,12 @@ import styled from 'styled-components';
 
 export const AppDiv = styled.div`
          text-align: center;
-         background-color: #282c34;
+         background-color: #c5c9ca;
          min-height: 100vh;
          display: flex;
          flex-direction: column;
          align-items: center;
          justify-content: center;
-         font-size: calc(10px + 2vmin);
-         color: white;
-`;
-
-export const AppLink = styled.a`
-        color: #61dafb;
+         font-size: 10px;
+         color: black;
 `;

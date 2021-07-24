@@ -8,7 +8,7 @@ export const AppHeader = styled.header`
 `;
 
 export const AppLink = styled.a`
-         color: #61dafb;
+         color: #18333c;
 `;
 
 const rotate = keyframes`
