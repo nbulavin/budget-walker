@@ -1,14 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'mobx-react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
+import mainStore from './stores/mainStore';
+
+const stores = {
+  mainStore,
+  UserStore: mainStore.UserStore,
+};
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <Provider {...stores}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 
