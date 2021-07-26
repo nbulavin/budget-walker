@@ -10,6 +10,7 @@ import mainStore from './stores/mainStore';
 const stores = {
   mainStore,
   UserStore: mainStore.UserStore,
+  LoginStore: mainStore.LoginStore,
 };
 
 ReactDOM.render(
