@@ -31,9 +31,15 @@ class Login extends React.Component {
     super(props);
 
     this.sendRequest = this.sendRequest.bind(this);
+    this.state = {
+      buttonIdle: true,
+      loginErrors: [],
+      buttonEnabled: false
+    }
   }
 
   sendRequest() {
+    this.setState({ buttonIdle: false, loginErrors: [] });
     console.log(this.props.LoginStore);
     const store = this.props.LoginStore;
     const userStore = this.props.UserStore;
@@ -51,16 +57,30 @@ class Login extends React.Component {
           console.log("we are in if");
           console.log(data.signIn);
           userStore.bindOption(data.signIn.me);
+        } else {
+          console.log("we are in else");
+          rootObject.setState({ loginErrors: data.signIn.errors });
         }
       });
+    this.setState({buttonIdle: true});
   }
 
   render() {
+    const { buttonIdle, loginErrors } = this.state;
+    // const buttonEnabled = this.props.LoginStore.email && this.props.LoginStore.password;
     return (
       <BackgroundDiv>
         <NarrowDiv>
           <FormSection />
-          <SendButton sendRequest={this.sendRequest} buttonName={"Sign in"}/>
+          <p>
+            {loginErrors}
+          </p>
+          <SendButton
+            sendRequest={this.sendRequest}
+            buttonIdle={buttonIdle}
+            buttonName={"Войти"}
+            buttonEnabled={true}
+          />
         </NarrowDiv>
       </BackgroundDiv>
     );
