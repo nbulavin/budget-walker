@@ -6,6 +6,8 @@ import SendButton from "../../components/common/SendButton";
 import FormSection from "../../components/Login/FormSection";
 // import apiClient from "../../utils/apiClient";
 import { GraphQLClient } from 'graphql-request';
+import BackgroundTitle from "../../components/common/BackgroundTitle";
+import Errors from "../../components/Login/Errors";
 
 const SIGN_IN_MUTATION = gql`
   mutation SignNeIn($email: String!, $password: String!) {
@@ -70,11 +72,10 @@ class Login extends React.Component {
     // const buttonEnabled = this.props.LoginStore.email && this.props.LoginStore.password;
     return (
       <BackgroundDiv>
+        <BackgroundTitle text={"Войти"}/>
         <NarrowDiv>
           <FormSection />
-          <p>
-            {loginErrors}
-          </p>
+          <Errors errorsArray={loginErrors}/>
           <SendButton
             sendRequest={this.sendRequest}
             buttonIdle={buttonIdle}
