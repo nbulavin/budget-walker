@@ -34,6 +34,7 @@ class Login extends React.Component {
       .then((data) => {
         if (data.signIn.errors.length < 1) {
           userStore.bindOption(data.signIn.me);
+          localStorage.setItem('Authorization', data.signIn.token);
         } else {
           rootObject.setState({ loginErrors: data.signIn.errors });
         }
