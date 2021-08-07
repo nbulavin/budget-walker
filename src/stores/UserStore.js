@@ -2,13 +2,13 @@ import { action, observable, makeObservable } from 'mobx';
 
 export default class UserStore {
   constructor() {
-    makeObservable(this)
+    makeObservable(this);
   }
 
   @observable params = {
     firstName: '',
     lastName: '',
-    email: ''
+    email: '',
   };
 
   @action bindOption = (info) => {

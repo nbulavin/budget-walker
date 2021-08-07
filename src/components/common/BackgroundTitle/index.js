@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledHeader } from "./styles";
+import { StyledHeader } from './styles';
 
 class BackgroundTitle extends React.Component {
   render() {
@@ -7,7 +7,7 @@ class BackgroundTitle extends React.Component {
       <StyledHeader>
         {this.props.text}
       </StyledHeader>
-    )
+    );
   }
 }
 

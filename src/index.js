@@ -5,12 +5,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
-import mainStore from './stores/mainStore';
+import MainStore from './stores/MainStore';
 
 const stores = {
-  mainStore,
-  UserStore: mainStore.UserStore,
-  LoginStore: mainStore.LoginStore,
+  MainStore,
+  UserStore: MainStore.UserStore,
+  LoginStore: MainStore.LoginStore,
 };
 
 ReactDOM.render(
@@ -19,7 +19,7 @@ ReactDOM.render(
       <App />
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,13 +1,17 @@
-import React from "react";
+import React from 'react';
 import logo from '../../assets/logo.svg';
-import { RotatedLogo, AppHeader, AppLink} from './styles';
+import { RotatedLogo, AppHeader, AppLink } from './styles';
 
 function Placeholder() {
   return (
     <AppHeader>
       <RotatedLogo src={logo} alt="logo" />
       <p>
-        Edit <code>src/App.js</code> and save to reload.
+        Edit
+        {' '}
+        <code>src/App.js</code>
+        {' '}
+        and save to reload.
       </p>
       <AppLink
         href="https://reactjs.org"

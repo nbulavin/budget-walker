@@ -2,13 +2,13 @@ import { action, observable, makeObservable } from 'mobx';
 
 export default class LoginStore {
   constructor() {
-    makeObservable(this)
+    makeObservable(this);
   }
 
   @observable params = {
     email: '',
     password: '',
-    inProgress: false
+    inProgress: false,
   };
 
   @action
@@ -23,11 +23,11 @@ export default class LoginStore {
 
   @action
   startProgress = () => {
-    this.params.inProgress = true
+    this.params.inProgress = true;
   };
 
   @action
   finishProgress = () => {
-    this.params.inProgress = false
+    this.params.inProgress = false;
   };
 }

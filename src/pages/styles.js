@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS } from "../const/colors";
+import { COLORS } from '../const/colors';
 
 export const AppDiv = styled.div`
          text-align: center;

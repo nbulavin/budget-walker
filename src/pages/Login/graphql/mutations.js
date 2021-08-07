@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request';
 
-export const SIGN_IN_MUTATION = gql`
+const SIGN_IN_MUTATION = gql`
   mutation SignNeIn($email: String!, $password: String!) {
     signIn(
       email: $email
@@ -16,3 +16,5 @@ export const SIGN_IN_MUTATION = gql`
     }
   }
 `;
+
+export default SIGN_IN_MUTATION;

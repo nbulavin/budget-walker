@@ -9,6 +9,6 @@ export const COLORS = {
   primaryButtonBackgroundHover: '#1E2022',
   primaryButtonText: '#C9D6DF',
   secondaryButtonBorder: '#1E2022',
-  secondaryButtonText: '#1E2022'
+  secondaryButtonText: '#1E2022',
 
-}
+};

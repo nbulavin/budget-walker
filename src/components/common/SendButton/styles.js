@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS } from "../../../const/colors";
+import { COLORS } from '../../../const/colors';
 
 export const StyledButton = styled.button`
   border-radius: 5px;
@@ -17,7 +17,7 @@ export const StyledButton = styled.button`
     background-color: ${COLORS.primaryButtonBackgroundDisabled};
   }
 
-  ${props => props.disabled === false && `
+  ${(props) => props.disabled === false && `
     &:hover {
       background-color: ${COLORS.primaryButtonBackgroundHover};
     }

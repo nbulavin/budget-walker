@@ -4,8 +4,8 @@ import { StyledButton } from './styles';
 
 class SendButton extends React.Component {
   render() {
-    const loading = this.props.loading;
-    const buttonEnabled = this.props.buttonEnabled;
+    const { loading } = this.props;
+    const { buttonEnabled } = this.props;
 
     return (
       <StyledButton onClick={this.props.sendRequest} disabled={!buttonEnabled}>
