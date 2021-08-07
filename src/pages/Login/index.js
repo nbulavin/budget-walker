@@ -1,30 +1,12 @@
 import React from "react";
 import { observer, inject } from 'mobx-react';
-import { gql } from 'graphql-request';
 import { BackgroundDiv, NarrowDiv } from "./styles";
 import SendButton from "../../components/common/SendButton";
 import FormSection from "../../components/Login/FormSection";
-// import apiClient from "../../utils/apiClient";
-import { GraphQLClient } from 'graphql-request';
 import BackgroundTitle from "../../components/common/BackgroundTitle";
 import Errors from "../../components/Login/Errors";
-
-const SIGN_IN_MUTATION = gql`
-  mutation SignNeIn($email: String!, $password: String!) {
-    signIn(
-      email: $email
-      password: $password
-    ) {
-      errors
-      token
-      me {
-        firstName
-        lastName
-        email
-      }
-    }
-  }
-`
+import { apiClient } from "../../utils/apiClient";
+import { SIGN_IN_MUTATION } from "./graphql/mutations";
 
 @inject('LoginStore', 'UserStore')
 @observer
@@ -34,42 +16,40 @@ class Login extends React.Component {
 
     this.sendRequest = this.sendRequest.bind(this);
     this.state = {
-      buttonIdle: true,
       loginErrors: [],
       buttonEnabled: false
     }
   }
 
   sendRequest() {
-    this.setState({ buttonIdle: false, loginErrors: [] });
-    console.log(this.props.LoginStore);
+    this.setState({ loginErrors: [] });
     const store = this.props.LoginStore;
+    store.startProgress();
+    console.log(this.props.LoginStore);
     const userStore = this.props.UserStore;
     const hash = {
       email: store.params.email,
       password: store.params.password
     };
-    console.log(hash);
     const rootObject = this;
-    const client = new GraphQLClient('http://localhost:3001/graphql')
-    client.request(SIGN_IN_MUTATION, hash)
+    apiClient.request(SIGN_IN_MUTATION, hash)
       .then((data) => {
-        console.log("we are in then");
         if (data.signIn.errors.length < 1) {
-          console.log("we are in if");
-          console.log(data.signIn);
           userStore.bindOption(data.signIn.me);
         } else {
-          console.log("we are in else");
           rootObject.setState({ loginErrors: data.signIn.errors });
         }
+      }).catch(() => {
+        rootObject.setState({ loginErrors: ['Неизвестная ошибка. Попробуйте позже'] });
+      }).finally(() => {
+        store.finishProgress();
       });
-    this.setState({buttonIdle: true});
   }
 
   render() {
-    const { buttonIdle, loginErrors } = this.state;
-    // const buttonEnabled = this.props.LoginStore.email && this.props.LoginStore.password;
+    const { loginErrors } = this.state;
+    const { email, password, inProgress } = this.props.LoginStore.params
+    const buttonEnabled = (email !== '' && password !== '' && !inProgress);
     return (
       <BackgroundDiv>
         <BackgroundTitle text={"Войти"}/>
@@ -78,9 +58,9 @@ class Login extends React.Component {
           <Errors errorsArray={loginErrors}/>
           <SendButton
             sendRequest={this.sendRequest}
-            buttonIdle={buttonIdle}
+            loading={inProgress}
             buttonName={"Войти"}
-            buttonEnabled={true}
+            buttonEnabled={buttonEnabled}
           />
         </NarrowDiv>
       </BackgroundDiv>

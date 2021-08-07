@@ -1,20 +1,19 @@
 import React from 'react';
+import { ThreeDots } from '@agney/react-loading';
 import { StyledButton } from './styles';
-import ReactLoading from 'react-loading';
 
 class SendButton extends React.Component {
   render() {
-    const buttonIdle = this.props.buttonIdle;
+    const loading = this.props.loading;
     const buttonEnabled = this.props.buttonEnabled;
 
     return (
       <StyledButton onClick={this.props.sendRequest} disabled={!buttonEnabled}>
-        { buttonIdle ? (
+        { !loading ? (
           this.props.buttonName
         ) : (
-          <ReactLoading type="cylon" color="black" />
+          <ThreeDots width="40" />
         ) }
-        {/*{this.props.buttonName}*/}
       </StyledButton>
     );
   }

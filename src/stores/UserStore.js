@@ -1,6 +1,10 @@
-import { action, observable } from 'mobx';
+import { action, observable, makeObservable } from 'mobx';
 
 export default class UserStore {
+  constructor() {
+    makeObservable(this)
+  }
+
   @observable params = {
     firstName: '',
     lastName: '',

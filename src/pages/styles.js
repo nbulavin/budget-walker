@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { COLORS } from "../const/colors";
 
 export const AppDiv = styled.div`
          text-align: center;
-         background-color: #f2f2f2;
+         background-color: ${COLORS.appBackground};
          min-height: 100vh;
          display: flex;
          flex-direction: column;
