@@ -1,4 +1,8 @@
 {
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
     "env": {
         "browser": true,
         "es2021": true
@@ -10,13 +14,15 @@
     "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": true,
+            "legacyDecorators": true
         },
         "ecmaVersion": 12,
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "only-warn"
     ],
     "rules": {
     }
