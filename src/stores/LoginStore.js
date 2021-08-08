@@ -30,4 +30,11 @@ export default class LoginStore {
   finishProgress = () => {
     this.params.inProgress = false;
   };
+
+  @action
+  cleanStore = () => {
+    this.params.email = '';
+    this.params.password = '';
+    this.params.inProgress = false;
+  }
 }

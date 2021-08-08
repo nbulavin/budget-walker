@@ -3,12 +3,14 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { AppDiv } from './styles';
 import Placeholder from './Placeholder/index';
 import Login from './Login/index';
-import { isLoggedIn } from "../helpers/authorization";
+import Dashboard from './Dashboard';
+import { isLoggedIn } from '../helpers/authorization';
 
 function App() {
   return (
     <AppDiv>
       <Switch>
+        <Route path="/dashboard" component={Dashboard} />
         <Route path="/login" component={Login} />
         <Route exact path="/">
           {

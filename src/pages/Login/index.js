@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { BackgroundDiv, NarrowDiv } from './styles';
+import { NarrowDiv } from './styles';
 import SendButton from '../../components/common/SendButton';
 import FormSection from '../../components/Login/FormSection';
 import BackgroundTitle from '../../components/common/BackgroundTitle';
@@ -8,6 +8,7 @@ import Errors from '../../components/Login/Errors';
 import apiClient from '../../helpers/graphQlClient';
 import SIGN_IN_MUTATION from './graphql/mutations';
 import { addAuthToken } from '../../helpers/authorization';
+import { Redirect } from "react-router-dom";
 
 @inject('LoginStore', 'UserStore')
 @observer
@@ -18,6 +19,7 @@ class Login extends React.Component {
     this.sendRequest = this.sendRequest.bind(this);
     this.state = {
       loginErrors: [],
+      redirect: false
     };
   }
 
@@ -36,6 +38,7 @@ class Login extends React.Component {
         if (data.signIn.errors.length < 1) {
           userStore.bindOption(data.signIn.me);
           addAuthToken(data.signIn.token);
+          rootObject.setState({ redirect: true });
         } else {
           rootObject.setState({ loginErrors: data.signIn.errors });
         }
@@ -46,25 +49,35 @@ class Login extends React.Component {
       });
   }
 
+  componentWillUnmount() {
+    this.setState({ loginErrors: [], redirect: false });
+    this.props.LoginStore.cleanStore();
+  }
+
   render() {
     const { loginErrors } = this.state;
     const { email, password, inProgress } = this.props.LoginStore.params;
     const buttonEnabled = (email !== '' && password !== '' && !inProgress);
-    return (
-      <BackgroundDiv>
-        <BackgroundTitle text="Войти" />
-        <NarrowDiv>
-          <FormSection />
-          <Errors errorsArray={loginErrors} />
-          <SendButton
-            sendRequest={this.sendRequest}
-            loading={inProgress}
-            buttonName="Войти"
-            buttonEnabled={buttonEnabled}
-          />
-        </NarrowDiv>
-      </BackgroundDiv>
-    );
+    if (this.state.redirect === true) {
+      return (<Redirect to="/dashboard" />);
+    } else {
+      return (
+        <div>
+          <BackgroundTitle text="Войти" />
+          <NarrowDiv>
+            <FormSection />
+            <Errors errorsArray={loginErrors} />
+            <SendButton
+              sendRequest={this.sendRequest}
+              loading={inProgress}
+              buttonName="Войти"
+              buttonEnabled={buttonEnabled}
+            />
+          </NarrowDiv>
+        </div>
+      );
+    }
+
   }
 }
 
