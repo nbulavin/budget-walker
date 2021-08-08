@@ -1,5 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
+import { Redirect } from "react-router-dom";
 import { NarrowDiv } from './styles';
 import SendButton from '../../components/common/SendButton';
 import FormSection from '../../components/Login/FormSection';
@@ -8,7 +9,7 @@ import Errors from '../../components/Login/Errors';
 import apiClient from '../../helpers/graphQlClient';
 import SIGN_IN_MUTATION from './graphql/mutations';
 import { addAuthToken } from '../../helpers/authorization';
-import { Redirect } from "react-router-dom";
+import ROUTE_URLS from "../../const/routeUrls";
 
 @inject('LoginStore', 'UserStore')
 @observer
@@ -59,7 +60,7 @@ class Login extends React.Component {
     const { email, password, inProgress } = this.props.LoginStore.params;
     const buttonEnabled = (email !== '' && password !== '' && !inProgress);
     if (this.state.redirect === true) {
-      return (<Redirect to="/dashboard" />);
+      return (<Redirect to={ROUTE_URLS.dashboard} />);
     } else {
       return (
         <div>

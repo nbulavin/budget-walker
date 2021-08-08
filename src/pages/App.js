@@ -5,17 +5,21 @@ import Placeholder from './Placeholder/index';
 import Login from './Login/index';
 import Dashboard from './Dashboard';
 import { isLoggedIn } from '../helpers/authorization';
+import ROUTE_URLS from "../const/routeUrls";
 
 function App() {
   return (
     <AppDiv>
       <Switch>
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/login" component={Login} />
-        <Route exact path="/">
+        <Route path={ROUTE_URLS.dashboard} component={Dashboard} />
+        <Route path={ROUTE_URLS.login} component={Login} />
+        <Route exact path={ROUTE_URLS.mainPage}>
           {
-            !isLoggedIn() ? <Redirect to="/login" /> : <Placeholder />
+            !isLoggedIn() ? <Redirect to={ROUTE_URLS.login} /> : <Redirect to={ROUTE_URLS.dashboard} />
           }
+        </Route>
+        <Route>
+          <Placeholder />
         </Route>
       </Switch>
     </AppDiv>
