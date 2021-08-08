@@ -3,11 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { AppDiv } from './styles';
 import Placeholder from './Placeholder/index';
 import Login from './Login/index';
-
-function isEmpty(str) {
-  console.log(str)
-  return (!str || str.length === 0 );
-}
+import { isLoggedIn } from "../helpers/authorization";
 
 function App() {
   return (
@@ -16,7 +12,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route exact path="/">
           {
-            isEmpty(localStorage.getItem('Authorization')) ? <Redirect to="/login" /> : <Placeholder />
+            !isLoggedIn() ? <Redirect to="/login" /> : <Placeholder />
           }
         </Route>
       </Switch>

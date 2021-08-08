@@ -5,8 +5,9 @@ import SendButton from '../../components/common/SendButton';
 import FormSection from '../../components/Login/FormSection';
 import BackgroundTitle from '../../components/common/BackgroundTitle';
 import Errors from '../../components/Login/Errors';
-import apiClient from '../../utils/apiClient';
+import apiClient from '../../helpers/graphQlClient';
 import SIGN_IN_MUTATION from './graphql/mutations';
+import { addAuthToken } from '../../helpers/authorization';
 
 @inject('LoginStore', 'UserStore')
 @observer
@@ -34,7 +35,7 @@ class Login extends React.Component {
       .then((data) => {
         if (data.signIn.errors.length < 1) {
           userStore.bindOption(data.signIn.me);
-          localStorage.setItem('Authorization', data.signIn.token);
+          addAuthToken(data.signIn.token);
         } else {
           rootObject.setState({ loginErrors: data.signIn.errors });
         }
