@@ -1,15 +1,16 @@
 import React from 'react';
 import BackgroundTitle from '../../components/common/BackgroundTitle';
+import { BackgroundDiv } from "../../components/common/styles";
 
-class Dashboard extends React.Component {
+class Feed extends React.Component {
   render() {
     return (
-      <div>
+      <BackgroundDiv>
         <BackgroundTitle text="Дэшборд" />
         <p>Здесь будет дэшборд</p>
-      </div>
+      </BackgroundDiv>
       )
   }
 }
 
-export default Dashboard;
+export default Feed;

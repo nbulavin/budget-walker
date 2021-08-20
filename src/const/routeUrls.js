@@ -1,7 +1,7 @@
 const ROUTE_URLS = {
   mainPage: '/',
   login: '/login',
-  dashboard: '/dashboard'
+  feed: '/feed'
 }
 
 export default ROUTE_URLS;

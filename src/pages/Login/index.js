@@ -60,7 +60,7 @@ class Login extends React.Component {
     const { email, password, inProgress } = this.props.LoginStore.params;
     const buttonEnabled = (email !== '' && password !== '' && !inProgress);
     if (this.state.redirect === true) {
-      return (<Redirect to={ROUTE_URLS.dashboard} />);
+      return (<Redirect to={ROUTE_URLS.feed} />);
     } else {
       return (
         <div>
