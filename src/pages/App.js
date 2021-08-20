@@ -12,7 +12,7 @@ function App() {
     <AppDiv>
       <Switch>
         <Route path={ROUTE_URLS.feed} component={Feed} />
-        <Route path={ROUTE_URLS.login} component={Login}>
+        <Route path={ROUTE_URLS.login}>
           {
             isLoggedIn() ? <Redirect to={ROUTE_URLS.feed} /> : <Redirect to={ROUTE_URLS.login} />
           }
