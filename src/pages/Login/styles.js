@@ -1,13 +1,11 @@
 import styled from 'styled-components';
-import { COLORS } from '../../const/colors';
+import { BlockDiv } from "../../components/common/styles";
 
-const backgroundColor = COLORS.blockBackground;
-
-export const NarrowDiv = styled.div`
+export const NarrowDiv = styled(BlockDiv)`
     width: 350px;
-    position: relative;
-    margin: auto;
-    background-color: ${backgroundColor};
-    padding: 20px 6px;
-    border-radius: 10px;
+`;
+
+export const CentralizedDiv = styled.div`
+  margin-top: auto;
+  margin-bottom: auto;
 `;

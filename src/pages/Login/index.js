@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { Redirect } from "react-router-dom";
-import { NarrowDiv } from './styles';
+import { CentralizedDiv, NarrowDiv } from './styles';
 import SendButton from '../../components/common/SendButton';
 import FormSection from '../../components/Login/FormSection';
 import BackgroundTitle from '../../components/common/BackgroundTitle';
@@ -63,7 +63,7 @@ class Login extends React.Component {
       return (<Redirect to={ROUTE_URLS.feed} />);
     } else {
       return (
-        <div>
+        <CentralizedDiv>
           <BackgroundTitle text="Войти" />
           <NarrowDiv>
             <FormSection />
@@ -75,7 +75,7 @@ class Login extends React.Component {
               buttonEnabled={buttonEnabled}
             />
           </NarrowDiv>
-        </div>
+        </CentralizedDiv>
       );
     }
 
