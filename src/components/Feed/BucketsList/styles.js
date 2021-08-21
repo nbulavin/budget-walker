@@ -16,6 +16,7 @@ export const ListHeader = styled.div`
   font-size: 30px;
   color: ${COLORS.title};
   text-align: left;
+  height: 40px;
 `;
 
 export const ListDiv = styled.div`
@@ -23,4 +24,13 @@ export const ListDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+`;
+
+export const LoadingDiv = styled.div`
+  display: inline-flex;
+  align-content: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
 `;

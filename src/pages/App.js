@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { AppDiv } from './styles';
+import AppDiv from './styles';
 import Placeholder from './Placeholder/index';
 import Login from './Login/index';
 import Feed from './Feed';

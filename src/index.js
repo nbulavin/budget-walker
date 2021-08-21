@@ -11,6 +11,7 @@ const stores = {
   MainStore,
   UserStore: MainStore.UserStore,
   LoginStore: MainStore.LoginStore,
+  BucketListStore: MainStore.BucketListStore,
 };
 
 ReactDOM.render(

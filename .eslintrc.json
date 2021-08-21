@@ -25,5 +25,6 @@
         "only-warn"
     ],
     "rules": {
+        "linebreak-style": "off"
     }
 }

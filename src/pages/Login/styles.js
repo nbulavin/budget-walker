@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BlockDiv } from "../../components/common/styles";
+import { BlockDiv } from '../../components/common/styles';
 
 export const NarrowDiv = styled(BlockDiv)`
     width: 350px;

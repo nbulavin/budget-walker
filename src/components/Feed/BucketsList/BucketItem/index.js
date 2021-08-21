@@ -3,20 +3,22 @@ import {ItemDiv, ItemFooter, ItemHeader, ItemTitle, PriceInFooter} from './style
 
 class BucketItem extends React.Component {
   render() {
+    const { itemProvider, itemTitle, itemType, itemActualBalance } = this.props;
+
     return (
       <ItemDiv>
         <ItemHeader>
-          ВТБ
+          {itemProvider}
         </ItemHeader>
         <ItemTitle>
-          Основная зарплатная карта
+          {itemTitle}
         </ItemTitle>
         <ItemFooter>
           <div>
-            Иконка
+            {itemType}
           </div>
           <PriceInFooter>
-            1882 р.
+            {itemActualBalance} р.
           </PriceInFooter>
         </ItemFooter>
       </ItemDiv>
