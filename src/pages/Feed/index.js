@@ -1,28 +1,30 @@
 import React from 'react';
 import BackgroundTitle from '../../components/common/BackgroundTitle';
 import ResultingInfoSection from '../../components/Feed/ResultingInfoSection/index';
-import BucketsList from "../../components/Feed/BucketsList";
-import {BackgroundDiv, FullWidthDiv} from '../../components/common/styles';
-import { BlockDiv } from "../../components/common/styles";
-import {InlinedDiv, LeftAlignedDiv, RightAlignedDiv} from "./styles";
+import BucketsList from '../../components/Feed/BucketsList';
+import { BackgroundDiv } from '../../components/common/styles';
+import { LeftAlignedDiv, RightAlignedDiv} from './styles';
+import ExpenseCategoriesList from '../../components/Feed/ExpenseCategoriesList';
+import OperationsList from '../../components/Feed/OperationsList';
+import SavingsList from '../../components/Feed/SavingsList';
 
 class Feed extends React.Component {
   render() {
+    const leftColumnWidth = 60;
+    const rightColumnWidth = 100 - leftColumnWidth;
+
     return (
       <BackgroundDiv>
         <BackgroundTitle text="Главная" />
         <ResultingInfoSection />
         <div>
-          <LeftAlignedDiv blockWidth={'60%'}>
+          <LeftAlignedDiv blockWidth={`${leftColumnWidth}%`}>
             <BucketsList />
-            <FullWidthDiv>
-              <p>Здесь будет список категорий расходов</p>
-            </FullWidthDiv>
+            <ExpenseCategoriesList />
+            <SavingsList />
           </LeftAlignedDiv>
-          <RightAlignedDiv blockWidth={'40%'}>
-            <FullWidthDiv>
-              <p>Здесь будет лента операций</p>
-            </FullWidthDiv>
+          <RightAlignedDiv blockWidth={`${rightColumnWidth}%`}>
+            <OperationsList />
           </RightAlignedDiv>
         </div>
       </BackgroundDiv>
