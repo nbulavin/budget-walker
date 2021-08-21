@@ -43,9 +43,7 @@ class BucketsList extends React.Component {
     client.setHeader('Authorization', showAuthToken());
     client.request(GET_BUCKETS_LIST)
       .then((data) => {
-        if (data.length > 0) {
-          bucketsStore.bindBuckets(data.getBucketsList.list);
-        }
+        bucketsStore.bindBuckets(data.getBucketsList.list);
       }).catch((response) => {
         rootObject.setState({ listErrors: response.response.errors.map((elm) => (elm.message)) });
       }).finally(() => {
