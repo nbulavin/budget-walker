@@ -19,4 +19,3 @@ export const BlockDiv = styled.div`
 export const FullWidthDiv = styled(BlockDiv)`
   width: 100%;
 `;
-

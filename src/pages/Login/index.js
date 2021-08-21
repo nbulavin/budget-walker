@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { Redirect } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 import { CentralizedDiv, NarrowDiv } from './styles';
 import SendButton from '../../components/common/SendButton';
 import FormSection from '../../components/Login/FormSection';
@@ -9,7 +9,7 @@ import Errors from '../../components/Login/Errors';
 import apiClient from '../../helpers/graphQlClient';
 import SIGN_IN_MUTATION from './graphql/mutations';
 import { addAuthToken } from '../../helpers/authorization';
-import ROUTE_URLS from "../../const/routeUrls";
+import ROUTE_URLS from '../../const/routeUrls';
 
 @inject('LoginStore', 'UserStore')
 @observer
@@ -20,7 +20,7 @@ class Login extends React.Component {
     this.sendRequest = this.sendRequest.bind(this);
     this.state = {
       loginErrors: [],
-      redirect: false
+      redirect: false,
     };
   }
 
@@ -61,24 +61,22 @@ class Login extends React.Component {
     const buttonEnabled = (email !== '' && password !== '' && !inProgress);
     if (this.state.redirect === true) {
       return (<Redirect to={ROUTE_URLS.feed} />);
-    } else {
-      return (
-        <CentralizedDiv>
-          <BackgroundTitle text="Войти" />
-          <NarrowDiv>
-            <FormSection />
-            <Errors errorsArray={loginErrors} />
-            <SendButton
-              sendRequest={this.sendRequest}
-              loading={inProgress}
-              buttonName="Войти"
-              buttonEnabled={buttonEnabled}
-            />
-          </NarrowDiv>
-        </CentralizedDiv>
-      );
     }
-
+    return (
+      <CentralizedDiv>
+        <BackgroundTitle text="Войти" />
+        <NarrowDiv>
+          <FormSection />
+          <Errors errorsArray={loginErrors} />
+          <SendButton
+            sendRequest={this.sendRequest}
+            loading={inProgress}
+            buttonName="Войти"
+            buttonEnabled={buttonEnabled}
+          />
+        </NarrowDiv>
+      </CentralizedDiv>
+    );
   }
 }
 

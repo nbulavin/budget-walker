@@ -5,7 +5,7 @@ import Placeholder from './Placeholder/index';
 import Login from './Login/index';
 import Feed from './Feed';
 import { isLoggedIn } from '../helpers/authorization';
-import ROUTE_URLS from "../const/routeUrls";
+import ROUTE_URLS from '../const/routeUrls';
 
 function App() {
   return (

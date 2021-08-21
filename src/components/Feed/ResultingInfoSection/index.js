@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResultingInfoDiv } from "./styles";
+import { ResultingInfoDiv } from './styles';
 
 class ResultingInfoSection extends React.Component {
   render() {

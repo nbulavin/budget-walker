@@ -3,7 +3,7 @@ import BackgroundTitle from '../../components/common/BackgroundTitle';
 import ResultingInfoSection from '../../components/Feed/ResultingInfoSection/index';
 import BucketsList from '../../components/Feed/BucketsList';
 import { BackgroundDiv } from '../../components/common/styles';
-import { LeftAlignedDiv, RightAlignedDiv} from './styles';
+import { LeftAlignedDiv, RightAlignedDiv } from './styles';
 import ExpenseCategoriesList from '../../components/Feed/ExpenseCategoriesList';
 import OperationsList from '../../components/Feed/OperationsList';
 import SavingsList from '../../components/Feed/SavingsList';
@@ -28,7 +28,7 @@ class Feed extends React.Component {
           </RightAlignedDiv>
         </div>
       </BackgroundDiv>
-      )
+    );
   }
 }
 

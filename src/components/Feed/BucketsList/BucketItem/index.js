@@ -1,9 +1,13 @@
 import React from 'react';
-import {ItemDiv, ItemFooter, ItemHeader, ItemTitle, PriceInFooter} from './styles';
+import {
+  ItemDiv, ItemFooter, ItemHeader, ItemTitle, PriceInFooter,
+} from './styles';
 
 class BucketItem extends React.Component {
   render() {
-    const { itemProvider, itemTitle, itemType, itemActualBalance } = this.props;
+    const {
+      itemProvider, itemTitle, itemType, itemActualBalance,
+    } = this.props;
 
     return (
       <ItemDiv>
@@ -18,7 +22,9 @@ class BucketItem extends React.Component {
             {itemType}
           </div>
           <PriceInFooter>
-            {itemActualBalance} р.
+            {itemActualBalance}
+            {' '}
+            р.
           </PriceInFooter>
         </ItemFooter>
       </ItemDiv>
