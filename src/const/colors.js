@@ -1,6 +1,7 @@
 export const COLORS = {
   appBackground: '#C9D6DF',
   blockBackground: '#F0F5F9',
+  blockHeaderBackground: '#d7dfe5',
   text: '#52616B',
   subtitle: '#1E2022',
   title: '#1E2022',

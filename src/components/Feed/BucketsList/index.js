@@ -1,12 +1,21 @@
 import React from 'react';
-import { FullWidthDiv } from '../../common/styles';
+import { BucketsListDiv, ListDiv, ListHeader } from './styles';
+import BucketItem from "./BucketItem";
 
 class BucketsList extends React.Component {
+
   render() {
     return (
-      <FullWidthDiv>
-        <p>Здесь будет список источников дохода</p>
-      </FullWidthDiv>
+      <BucketsListDiv>
+        <ListHeader>Счета</ListHeader>
+        <ListDiv>
+          <BucketItem />
+          <BucketItem />
+          <BucketItem />
+          <BucketItem />
+          <BucketItem />
+        </ListDiv>
+      </BucketsListDiv>
     );
   }
 }
