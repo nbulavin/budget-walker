@@ -23,8 +23,7 @@ class BucketItem extends React.Component {
           </div>
           <PriceInFooter>
             {itemActualBalance}
-            {' '}
-            р.
+            {' ₽'}
           </PriceInFooter>
         </ItemFooter>
       </ItemDiv>

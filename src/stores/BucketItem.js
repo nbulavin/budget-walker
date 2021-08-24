@@ -13,9 +13,15 @@ export default class BucketItem {
 
   @observable id;
 
+  @observable provider;
+
+  @observable currentBalance;
+
   @action createBucketItem = (rawBucketItem) => {
     this.name = rawBucketItem.name;
     this.bucketType = rawBucketItem.bucketType;
     this.id = rawBucketItem.id;
+    this.provider = rawBucketItem.provider;
+    this.currentBalance = rawBucketItem.currentBalance;
   };
 }

@@ -28,6 +28,7 @@ export const ItemHeader = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
 export const ItemTitle = styled.div`
   height: 40px;
   font-size: 16px;

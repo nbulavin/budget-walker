@@ -8,6 +8,7 @@ import {
 import BucketItem from './BucketItem';
 import apiClient from '../../../helpers/graphQlClient';
 import { showAuthToken } from '../../../helpers/authorization';
+import AddBucketItem from "./AddBucketItem";
 
 const GET_BUCKETS_LIST = gql`
   query RetrieveBucketsList {
@@ -16,6 +17,8 @@ const GET_BUCKETS_LIST = gql`
         id
         name
         bucketType
+        provider
+        currentBalance
       }
       totalCount
     }
@@ -60,25 +63,26 @@ class BucketsList extends React.Component {
         <ListHeader>Счета</ListHeader>
         {dataFetched === false
         && (
-        <LoadingDiv>
-          <ThreeDots width="100" />
-        </LoadingDiv>
+          <LoadingDiv>
+            <ThreeDots width="100" />
+          </LoadingDiv>
         )}
         {dataFetched === true
-          && (
+        && (
           <ListDiv>
             {
               bucketsList.map((item) => (
                 <BucketItem
-                  itemProvider="ВТБ"
+                  itemProvider={item.provider}
                   itemTitle={item.name}
                   itemType={item.bucketType}
-                  itemActualBalance="1882"
+                  itemActualBalance={item.currentBalance}
                 />
               ))
             }
+            <AddBucketItem />
           </ListDiv>
-          )}
+        )}
       </BucketsListDiv>
     );
   }
