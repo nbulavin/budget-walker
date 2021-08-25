@@ -3,12 +3,13 @@ import { observer, inject } from 'mobx-react';
 import { gql } from 'graphql-request';
 import { ThreeDots } from '@agney/react-loading';
 import {
-  BucketsListDiv, ListDiv, ListHeader, LoadingDiv,
+  BucketsListDiv, ListDiv, ListFooter, ListHeader, LoadingDiv,
 } from './styles';
 import BucketItem from './BucketItem';
 import apiClient from '../../../helpers/graphQlClient';
 import { showAuthToken } from '../../../helpers/authorization';
 import AddBucketItem from "./AddBucketItem";
+import TextButton from "../../common/buttons/TextButton";
 
 const GET_BUCKETS_LIST = gql`
   query RetrieveBucketsList {
@@ -35,7 +36,9 @@ class BucketsList extends React.Component {
       bucketListErrors: [],
       dataFetched: false,
       listErrors: [],
+      expandedList: false
     };
+    this.toggleListExpanding = this.toggleListExpanding.bind(this);
   }
 
   componentDidMount() {
@@ -54,6 +57,10 @@ class BucketsList extends React.Component {
       });
   }
 
+  toggleListExpanding = () => {
+    this.setState({ expandedList: !this.state.expandedList })
+  }
+
   render() {
     const { dataFetched } = this.state;
     const bucketsList = this.props.BucketListStore.items;
@@ -69,10 +76,11 @@ class BucketsList extends React.Component {
         )}
         {dataFetched === true
         && (
-          <ListDiv>
+          <ListDiv expanded={this.state.expandedList}>
             {
               bucketsList.map((item) => (
                 <BucketItem
+                  key={item.id}
                   itemProvider={item.provider}
                   itemTitle={item.name}
                   itemType={item.bucketType}
@@ -83,6 +91,9 @@ class BucketsList extends React.Component {
             <AddBucketItem />
           </ListDiv>
         )}
+        <ListFooter>
+          <TextButton buttonName={"Развернуть"} onClickAction={this.toggleListExpanding}/>
+        </ListFooter>
       </BucketsListDiv>
     );
   }
