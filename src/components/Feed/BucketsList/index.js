@@ -1,30 +1,15 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { gql } from 'graphql-request';
 import { ThreeDots } from '@agney/react-loading';
 import {
-  BucketsListDiv, ListDiv, ListFooter, ListHeader, LoadingDiv,
+  BucketsListDiv, ListDiv, ListFooter, ListFooterText, ListHeader, LoadingDiv,
 } from './styles';
 import BucketItem from './BucketItem';
 import apiClient from '../../../helpers/graphQlClient';
 import { showAuthToken } from '../../../helpers/authorization';
 import AddBucketItem from "./AddBucketItem";
 import TextButton from "../../common/buttons/TextButton";
-
-const GET_BUCKETS_LIST = gql`
-  query RetrieveBucketsList {
-    getBucketsList {
-      list {
-        id
-        name
-        bucketType
-        provider
-        currentBalance
-      }
-      totalCount
-    }
-  }
-`;
+import { GET_BUCKETS_LIST } from "../../../graphql/Feed/BucketListGql";
 
 @inject('BucketListStore')
 @observer
@@ -38,7 +23,6 @@ class BucketsList extends React.Component {
       listErrors: [],
       expandedList: false
     };
-    this.toggleListExpanding = this.toggleListExpanding.bind(this);
   }
 
   componentDidMount() {
@@ -49,7 +33,7 @@ class BucketsList extends React.Component {
     client.setHeader('Authorization', showAuthToken());
     client.request(GET_BUCKETS_LIST)
       .then((data) => {
-        bucketsStore.bindBuckets(data.getBucketsList.list);
+        bucketsStore.bindBuckets(data.getBucketsList.list, data.getBucketsList.totalCount);
       }).catch((response) => {
         rootObject.setState({ listErrors: response.response.errors.map((elm) => (elm.message)) });
       }).finally(() => {
@@ -62,8 +46,9 @@ class BucketsList extends React.Component {
   }
 
   render() {
-    const { dataFetched } = this.state;
-    const bucketsList = this.props.BucketListStore.items;
+    const { dataFetched, expandedList } = this.state;
+    const { items, totalItemsCount } = this.props.BucketListStore;
+    const expandingButtonText = expandedList ? 'Свернуть' : 'Развернуть';
 
     return (
       <BucketsListDiv>
@@ -76,9 +61,9 @@ class BucketsList extends React.Component {
         )}
         {dataFetched === true
         && (
-          <ListDiv expanded={this.state.expandedList}>
+          <ListDiv expanded={expandedList}>
             {
-              bucketsList.map((item) => (
+              items.map((item) => (
                 <BucketItem
                   key={item.id}
                   itemProvider={item.provider}
@@ -92,7 +77,8 @@ class BucketsList extends React.Component {
           </ListDiv>
         )}
         <ListFooter>
-          <TextButton buttonName={"Развернуть"} onClickAction={this.toggleListExpanding}/>
+          <ListFooterText>Всего счетов: {totalItemsCount}</ListFooterText>
+          <TextButton buttonName={expandingButtonText} onClickAction={this.toggleListExpanding}/>
         </ListFooter>
       </BucketsListDiv>
     );

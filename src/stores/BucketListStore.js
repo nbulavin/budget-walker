@@ -7,8 +7,10 @@ export default class BucketListStore {
   }
 
   @observable items = [];
+  @observable totalItemsCount = 0;
 
-  @action bindBuckets = (info) => {
-    this.items = info.map((elm) => new BucketItem(elm));
+  @action bindBuckets = (items, count) => {
+    this.items = items.map((elm) => new BucketItem(elm));
+    this.totalItemsCount = count;
   };
 }

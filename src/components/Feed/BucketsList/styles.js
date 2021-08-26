@@ -25,8 +25,8 @@ export const ListDiv = styled.div`
   justify-content: flex-start;
   overflow: hidden;
   height: auto;
-  max-height: ${props => props.expanded ? "400px" : "136px"};
-  transition: max-height  .3s ease-out;
+  max-height: ${props => props.expanded ? "auto" : "136px"}; // replace auto with 5000px to enable animation
+  // transition: max-height .3s ease-in-out;
 `;
 
 export const LoadingDiv = styled.div`
@@ -48,9 +48,16 @@ export const ListFooter = styled.div`
   text-align: left;
   height: 30px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-end;
+  justify-content: space-between;
+  align-items: baseline;
+  align-content: space-around;
   line-height: 0.5em;
+`;
+
+export const ListFooterText = styled.div`
+  cursor: pointer;
+  font-size: 16px;
+  color: ${COLORS.title};
 `;

@@ -7,7 +7,7 @@ import FormSection from '../../components/Login/FormSection';
 import BackgroundTitle from '../../components/common/BackgroundTitle';
 import Errors from '../../components/Login/Errors';
 import apiClient from '../../helpers/graphQlClient';
-import SIGN_IN_MUTATION from './graphql/mutations';
+import SIGN_IN_MUTATION from '../../graphql/LoginGql';
 import { addAuthToken } from '../../helpers/authorization';
 import ROUTE_URLS from '../../const/routeUrls';
 

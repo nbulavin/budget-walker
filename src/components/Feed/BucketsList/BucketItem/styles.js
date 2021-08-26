@@ -27,6 +27,7 @@ export const ItemHeader = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 26.4px;
 `;
 
 export const ItemTitle = styled.div`
