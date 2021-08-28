@@ -3,9 +3,13 @@ import { ItemDiv } from '../BucketItem/styles';
 import { PlusIcon } from './styles';
 
 class AddBucketItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
-      <ItemDiv>
+      <ItemDiv onClick={this.props.openAddBucketModal}>
         <PlusIcon />
       </ItemDiv>
     );

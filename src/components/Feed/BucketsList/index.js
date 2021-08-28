@@ -10,6 +10,8 @@ import { showAuthToken } from '../../../helpers/authorization';
 import AddBucketItem from "./AddBucketItem";
 import TextButton from "../../common/buttons/TextButton";
 import { GET_BUCKETS_LIST } from "../../../graphql/Feed/BucketListGql";
+import Modal from "../../common/Modal";
+import AddBucketPopup from "./AddBucketPopup";
 
 @inject('BucketListStore')
 @observer
@@ -21,7 +23,8 @@ class BucketsList extends React.Component {
       bucketListErrors: [],
       dataFetched: false,
       listErrors: [],
-      expandedList: false
+      expandedList: false,
+      addBucketModalOpened: false
     };
   }
 
@@ -45,8 +48,17 @@ class BucketsList extends React.Component {
     this.setState({ expandedList: !this.state.expandedList })
   }
 
+  openAddBucketModal = () => {
+    console.log('plus is clicked')
+    this.setState({ addBucketModalOpened: true })
+  }
+
+  closeAddBucketModal = () => {
+    this.setState({ addBucketModalOpened: false })
+  }
+
   render() {
-    const { dataFetched, expandedList } = this.state;
+    const { dataFetched, expandedList, addBucketModalOpened } = this.state;
     const { items, totalItemsCount } = this.props.BucketListStore;
     const expandingButtonText = expandedList ? 'Свернуть' : 'Развернуть';
 
@@ -73,13 +85,16 @@ class BucketsList extends React.Component {
                 />
               ))
             }
-            <AddBucketItem />
+            <AddBucketItem openAddBucketModal={this.openAddBucketModal}/>
           </ListDiv>
         )}
         <ListFooter>
           <ListFooterText>Всего счетов: {totalItemsCount}</ListFooterText>
           <TextButton buttonName={expandingButtonText} onClickAction={this.toggleListExpanding}/>
         </ListFooter>
+        <Modal active={addBucketModalOpened} closeModal={this.closeAddBucketModal}>
+          <AddBucketPopup />
+        </Modal>
       </BucketsListDiv>
     );
   }

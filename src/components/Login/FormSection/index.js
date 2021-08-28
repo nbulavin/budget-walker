@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { FormInput } from './styles';
+import { StyledInput } from './styles';
 
 @inject('LoginStore')
 @observer
@@ -24,10 +24,10 @@ class FormSection extends React.Component {
     return (
       <div>
         <div>
-          <FormInput type="email" placeholder="Email" onChange={this.handleEmail} />
+          <StyledInput type="email" placeholder="Email" onChange={this.handleEmail} />
         </div>
         <div>
-          <FormInput type="password" placeholder="Пароль" onChange={this.handlePassword} />
+          <StyledInput type="password" placeholder="Пароль" onChange={this.handlePassword} />
         </div>
       </div>
     );
