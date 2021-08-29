@@ -3,6 +3,7 @@ import FormInput from '../../../common/Form/Input';
 import FormSelect from '../../../common/Form/Select';
 import { PopupBody, PopupDiv, PopupHeader } from './styles';
 import FormTextArea from "../../../common/Form/TextArea";
+import FormCurrencyInput from "../../../common/Form/CurrencyInput";
 
 class AddBucketPopup extends React.Component {
   constructor() {
@@ -12,7 +13,8 @@ class AddBucketPopup extends React.Component {
       name: '',
       provider: '',
       description: '',
-      bucketType: null
+      bucketType: null,
+      expectedEnrollment: null
     }
   }
 
@@ -32,6 +34,9 @@ class AddBucketPopup extends React.Component {
     this.setState({ description: text })
   }
 
+  handleExpectedEnrollment = (value) => {
+    this.setState({ expectedEnrollment: value })
+  }
 
   render() {
     return (
@@ -60,17 +65,17 @@ class AddBucketPopup extends React.Component {
             errors={[]}
             onInputChange={this.handleDescription}
           />
-
+          <FormCurrencyInput
+            name={"Ожидаемые поступления"}
+            errors={[]}
+            onInputChange={this.handleExpectedEnrollment}
+          />
 
           <div>
             Цвет
             <input placeholder="Опционально"/>
           </div>
 
-          <div>
-            Ожидаемое поступление
-            <input placeholder="Опциональное описание"/>
-          </div>
         </PopupBody>
       </PopupDiv>
     )
