@@ -2,8 +2,32 @@ import React from 'react';
 import FormInput from '../../../common/Form/Input';
 import FormSelect from '../../../common/Form/Select';
 import { PopupBody, PopupDiv, PopupHeader } from './styles';
+import FormTextArea from "../../../common/Form/TextArea";
 
 class AddBucketPopup extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      name: '',
+      provider: '',
+      description: ''
+    }
+  }
+
+  handleName = (text) => {
+    this.setState({ name: text })
+  }
+
+  handleProvider = (text) => {
+    this.setState({ provider: text })
+  }
+
+  handleDescription = (text) => {
+    this.setState({ description: text })
+  }
+
+
   render() {
     return (
       <PopupDiv>
@@ -11,31 +35,27 @@ class AddBucketPopup extends React.Component {
           Добавить счет
         </PopupHeader>
         <PopupBody>
-          <FormInput
-            name={"Название *"}
-            defaultText={"Моя карта"}
-            errors={[]}
-            onInputChange={console.log("test2")}
-          />
-
           <FormSelect
-            name={"Тип *"}
-            defaultText={"Тип счета"}
+            name={"Тип"}
             errors={[]}
             onInputChange={console.log("test2")}
           />
-
+          <FormInput
+            name={"Название"}
+            errors={[]}
+            onInputChange={this.handleName}
+          />
           <FormInput
             name={"Провайдер"}
-            defaultText={"ВТБ"}
             errors={[]}
-            onInputChange={console.log("test3")}
+            onInputChange={this.handleProvider}
+          />
+          <FormTextArea
+            name={"Описание"}
+            errors={[]}
+            onInputChange={this.handleDescription}
           />
 
-          <div>
-            Описание
-            <input placeholder="Опционально"/>
-          </div>
 
           <div>
             Цвет

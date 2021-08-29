@@ -1,7 +1,7 @@
 import React from 'react';
-import { ErrorsDiv, ErrorString, StyledFormInput, InputDiv, InputSectionDiv, NameDiv } from './styles';
+import { ErrorsDiv, ErrorString, InputSectionDiv, NameDiv, StyledTextArea, TextAreaDiv } from './styles';
 
-class FormInput extends React.Component {
+class FormTextArea extends React.Component {
   constructor(props) {
     super(props);
 
@@ -17,7 +17,8 @@ class FormInput extends React.Component {
   }
 
   render() {
-    const { name, errors } = this.props
+    const { name, errors, defaultText } = this.props;
+
     return (
       <InputSectionDiv>
         <NameDiv>
@@ -25,9 +26,15 @@ class FormInput extends React.Component {
             this.state.filledIn === true ? name : ''
           }
         </NameDiv>
-        <InputDiv>
-          <StyledFormInput placeholder={name} onChange={this.handleInputChange} inError={errors.length > 0}/>
-        </InputDiv>
+        <TextAreaDiv>
+          <StyledTextArea
+            placeholder={name}
+            onChange={this.handleInputChange}
+            inError={errors.length > 0}
+            rows={1}
+            max-rows={6}
+          />
+        </TextAreaDiv>
         <ErrorsDiv>
           {
             errors.map((item) => (
@@ -40,4 +47,4 @@ class FormInput extends React.Component {
   }
 }
 
-export default FormInput;
+export default FormTextArea;

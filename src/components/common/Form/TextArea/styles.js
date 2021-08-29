@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import TextareaAutosize from 'react-textarea-autosize';
 import { COLORS } from '../../../../const/colors';
 
 export const InputSectionDiv = styled.div`
@@ -11,28 +12,31 @@ export const NameDiv = styled.div`
   height: 16px;
 `;
 
-export const InputDiv = styled.div`
+export const TextAreaDiv = styled.div`
+  height: 28px;
 `;
 
-export const StyledFormInput = styled.input`
-  font-size: 16px;
+export const StyledTextArea = styled(TextareaAutosize)`
+  display: block;
   width: calc(100%);
-  padding: 0;
+  resize: none;
+  text-align: start;
+  background-color: inherit;
   border-bottom: 2px solid ${COLORS.borderColor};
   border-top: 0;
   border-left: 0;
   border-right: 0;
-  color: #1E2022;
-  height: 26px;
-  background-color: inherit;
+  font-size: 16px;
+  padding: 0;
+  margin-top: 3px;
   font-family: -apple-system, BlinkMacSystemFont, 'Nunito', 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
-
-  &:focus-visible {
-    outline: none !important;
-  }
   
+  &:focus-visible {
+    outline: 0;
+  }
+
   ::placeholder,
   ::-webkit-input-placeholder {
     color: ${COLORS.placeholderText};

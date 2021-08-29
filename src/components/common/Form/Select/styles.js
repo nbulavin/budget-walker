@@ -7,7 +7,7 @@ export const InputSectionDiv = styled.div`
 `;
 
 export const NameDiv = styled.div`
-  font-size: 18px;
+  font-size: 16px;
   text-align: left;
 `;
 
@@ -41,8 +41,10 @@ export const reactSelectStyles = {
     color: COLORS.text,
     opacity: state.isSelected ? 0.5 : 1,
     padding: 5,
+    paddingLeft: 10,
     background: state.isFocused ? COLORS.fieldBackgroundSelected : COLORS.fieldBackground,
-    fontSize: 16
+    fontSize: 16,
+    textAlign: 'left'
   }),
   singleValue: (provided, state) => ({
     ...provided,

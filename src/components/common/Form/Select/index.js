@@ -2,6 +2,9 @@ import React from 'react';
 
 import { ErrorsDiv, ErrorString, InputSectionDiv, NameDiv, SelectDiv, StyledSelect, reactSelectStyles } from './styles';
 
+const defaultValue = {
+  value: null, label: 'Тип'
+}
 const selectOptions = [
   { value: 'credit_card', label: 'Карта' },
   { value: 'account', label: 'Лицевой счет' },
@@ -19,7 +22,7 @@ const FormSelect = ({name, defaultText, errors, onInputChange}) => {
           className="basic-single"
           classNamePrefix="select"
           styles={reactSelectStyles}
-          defaultValue={selectOptions[0]}
+          defaultValue={defaultValue}
           onChange={onInputChange}
           options={selectOptions}
           isClearable={false}
