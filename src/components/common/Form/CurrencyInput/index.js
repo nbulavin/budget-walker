@@ -30,7 +30,6 @@ class FormCurrencyInput extends React.Component {
             placeholder={name}
             decimalsLimit={2}
             decimalScale={2}
-            fixedDecimalLength={2}
             intlConfig={{ locale: 'ru-RU', currency: 'RUB' }}
             decimalSeparator="."
             groupSeparator=" "
