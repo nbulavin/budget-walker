@@ -13,7 +13,7 @@ export const NameDiv = styled.div`
 `;
 
 export const TextAreaDiv = styled.div`
-  height: 28px;
+  min-height: 28px;
 `;
 
 export const StyledTextArea = styled(TextareaAutosize)`
@@ -22,7 +22,7 @@ export const StyledTextArea = styled(TextareaAutosize)`
   resize: none;
   text-align: start;
   background-color: inherit;
-  border-bottom: 2px solid ${COLORS.borderColor};
+  border-bottom: 2px solid;
   border-top: 0;
   border-left: 0;
   border-right: 0;

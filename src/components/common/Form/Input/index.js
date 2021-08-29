@@ -11,9 +11,8 @@ class FormInput extends React.Component {
   }
 
   handleInputChange = (text) => {
-    const { onInputChange } = this.props;
     this.setState({ filledIn: text.target.value !== '' });
-    onInputChange(text.target.value);
+    this.props.onInputChange(text.target.value);
   }
 
   render() {

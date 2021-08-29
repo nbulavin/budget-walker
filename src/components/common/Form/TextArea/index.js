@@ -1,5 +1,6 @@
 import React from 'react';
 import { ErrorsDiv, ErrorString, InputSectionDiv, NameDiv, StyledTextArea, TextAreaDiv } from './styles';
+import { COLORS } from '../../../../const/colors';
 
 class FormTextArea extends React.Component {
   constructor(props) {
@@ -11,13 +12,12 @@ class FormTextArea extends React.Component {
   }
 
   handleInputChange = (text) => {
-    const { onInputChange } = this.props;
     this.setState({ filledIn: text.target.value !== '' });
-    onInputChange(text.target.value);
+    this.props.onInputChange(text.target.value);
   }
 
   render() {
-    const { name, errors, defaultText } = this.props;
+    const { name, errors } = this.props;
 
     return (
       <InputSectionDiv>
@@ -30,9 +30,9 @@ class FormTextArea extends React.Component {
           <StyledTextArea
             placeholder={name}
             onChange={this.handleInputChange}
-            inError={errors.length > 0}
-            rows={1}
-            max-rows={6}
+            minRows={1}
+            maxRows={3}
+            style={{borderColor: errors.length > 0 ? COLORS.errorText : COLORS.borderColor}}
           />
         </TextAreaDiv>
         <ErrorsDiv>

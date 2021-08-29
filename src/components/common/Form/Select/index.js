@@ -11,35 +11,50 @@ const selectOptions = [
   { value: 'cash', label: 'Наличные' },
 ];
 
-const FormSelect = ({name, defaultText, errors, onInputChange}) => {
-  return (
-    <InputSectionDiv>
-      <NameDiv>
-        {name}
-      </NameDiv>
-      <SelectDiv>
-        <StyledSelect
-          className="basic-single"
-          classNamePrefix="select"
-          styles={reactSelectStyles}
-          defaultValue={defaultValue}
-          onChange={onInputChange}
-          options={selectOptions}
-          isClearable={false}
-          isSearchable={false}
-        />
+class FormSelect extends React.Component {
+  constructor(props) {
+    super(props);
 
-        {/*<FormInput placeholder={defaultText} onChange={onInputChange} inError={errors.length > 0}/>*/}
-      </SelectDiv>
-      <ErrorsDiv>
-        {
-          errors.map((item) => (
-            <ErrorString>{item}</ErrorString>
-          ))
-        }
-      </ErrorsDiv>
-    </InputSectionDiv>
-  )
+    this.state ={
+      filledIn: false
+    };
+  }
+
+  handleInputChange = (selectedOption) => {
+    this.setState({ filledIn: true });
+    this.props.onInputChange(selectedOption.value);
+  }
+
+  render() {
+    const { name, errors, onInputChange } = this.props
+
+    return (
+      <InputSectionDiv>
+        <NameDiv>
+          {name}
+        </NameDiv>
+        <SelectDiv>
+          <StyledSelect
+            className="basic-single"
+            classNamePrefix="select"
+            styles={reactSelectStyles}
+            defaultValue={defaultValue}
+            onChange={this.handleInputChange}
+            options={selectOptions}
+            isClearable={false}
+            isSearchable={false}
+          />
+        </SelectDiv>
+        <ErrorsDiv>
+          {
+            errors.map((item) => (
+              <ErrorString>{item}</ErrorString>
+            ))
+          }
+        </ErrorsDiv>
+      </InputSectionDiv>
+    )
+  }
 }
 
 export default FormSelect;

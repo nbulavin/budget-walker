@@ -11,8 +11,13 @@ class AddBucketPopup extends React.Component {
     this.state = {
       name: '',
       provider: '',
-      description: ''
+      description: '',
+      bucketType: null
     }
+  }
+
+  handleBucketType = (text) => {
+    this.setState({ bucketType: text })
   }
 
   handleName = (text) => {
@@ -38,7 +43,7 @@ class AddBucketPopup extends React.Component {
           <FormSelect
             name={"Тип"}
             errors={[]}
-            onInputChange={console.log("test2")}
+            onInputChange={this.handleBucketType}
           />
           <FormInput
             name={"Название"}

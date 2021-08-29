@@ -18,7 +18,7 @@ export const StyledFormInput = styled.input`
   font-size: 16px;
   width: calc(100%);
   padding: 0;
-  border-bottom: 2px solid ${COLORS.borderColor};
+  border-bottom: 2px solid ${props => props.inError ? COLORS.errorText : COLORS.borderColor};
   border-top: 0;
   border-left: 0;
   border-right: 0;
