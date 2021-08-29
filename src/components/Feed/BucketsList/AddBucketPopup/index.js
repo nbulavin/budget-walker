@@ -4,6 +4,8 @@ import FormSelect from '../../../common/Form/Select';
 import { PopupBody, PopupDiv, PopupHeader } from './styles';
 import FormTextArea from "../../../common/Form/TextArea";
 import FormCurrencyInput from "../../../common/Form/CurrencyInput";
+import FormColorPicker from "../../../common/Form/ColorPicker";
+import PrimaryBlockButton from "../../../common/buttons/PrimaryBlockButton";
 
 class AddBucketPopup extends React.Component {
   constructor() {
@@ -14,7 +16,8 @@ class AddBucketPopup extends React.Component {
       provider: '',
       description: '',
       bucketType: null,
-      expectedEnrollment: null
+      expectedEnrollment: null,
+      color: ''
     }
   }
 
@@ -38,11 +41,15 @@ class AddBucketPopup extends React.Component {
     this.setState({ expectedEnrollment: value })
   }
 
+  handleColor = (text) => {
+    this.setState({ color: text })
+  }
+
   render() {
     return (
       <PopupDiv>
         <PopupHeader>
-          Добавить счет
+          Создать счет
         </PopupHeader>
         <PopupBody>
           <FormSelect
@@ -71,10 +78,18 @@ class AddBucketPopup extends React.Component {
             onInputChange={this.handleExpectedEnrollment}
           />
 
-          <div>
-            Цвет
-            <input placeholder="Опционально"/>
-          </div>
+          <FormColorPicker
+            name={"Цвет"}
+            errors={[]}
+            onInputChange={this.handleColor}
+          />
+
+          <PrimaryBlockButton
+            sendRequest={this.sendRequest}
+            loading={false}
+            buttonName="Создать"
+            buttonEnabled={true}
+          />
 
         </PopupBody>
       </PopupDiv>

@@ -2,7 +2,7 @@ import React from 'react';
 import { ThreeDots } from '@agney/react-loading';
 import { StyledButton } from './styles';
 
-class SendButton extends React.Component {
+class PrimaryBlockButton extends React.Component {
   render() {
     const { loading } = this.props;
     const { buttonEnabled } = this.props;
@@ -19,4 +19,4 @@ class SendButton extends React.Component {
   }
 }
 
-export default SendButton;
+export default PrimaryBlockButton;

@@ -2,7 +2,7 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { Redirect } from 'react-router-dom';
 import { CentralizedDiv, NarrowDiv } from './styles';
-import SendButton from '../../components/common/SendButton';
+import PrimaryBlockButton from '../../components/common/buttons/PrimaryBlockButton';
 import FormSection from '../../components/Login/FormSection';
 import BackgroundTitle from '../../components/common/BackgroundTitle';
 import Errors from '../../components/Login/Errors';
@@ -68,7 +68,7 @@ class Login extends React.Component {
         <NarrowDiv>
           <FormSection />
           <Errors errorsArray={loginErrors} />
-          <SendButton
+          <PrimaryBlockButton
             sendRequest={this.sendRequest}
             loading={inProgress}
             buttonName="Войти"
