@@ -1,15 +1,16 @@
 import React from 'react';
 import FormInput from '../../../common/Form/Input';
 import FormSelect from '../../../common/Form/Select';
-import { PopupBody, PopupDiv, PopupHeader } from './styles';
 import FormTextArea from "../../../common/Form/TextArea";
 import FormCurrencyInput from "../../../common/Form/CurrencyInput";
 import FormColorPicker from "../../../common/Form/ColorPicker";
 import PrimaryBlockButton from "../../../common/buttons/PrimaryBlockButton";
+import BucketItem from "../BucketItem";
+import { ExampleBody, PopupBody, PopupColumn, PopupDiv, PopupHeader } from './styles';
 
 class AddBucketPopup extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       name: '',
@@ -17,7 +18,7 @@ class AddBucketPopup extends React.Component {
       description: '',
       bucketType: null,
       expectedEnrollment: null,
-      color: ''
+      color: '',
     }
   }
 
@@ -46,51 +47,65 @@ class AddBucketPopup extends React.Component {
   }
 
   render() {
+    const { name, provider, bucketType, color } = this.state;
+
     return (
       <PopupDiv>
         <PopupHeader>
           Создать счет
         </PopupHeader>
         <PopupBody>
-          <FormSelect
-            name={"Тип"}
-            errors={[]}
-            onInputChange={this.handleBucketType}
-          />
-          <FormInput
-            name={"Название"}
-            errors={[]}
-            onInputChange={this.handleName}
-          />
-          <FormInput
-            name={"Провайдер"}
-            errors={[]}
-            onInputChange={this.handleProvider}
-          />
-          <FormTextArea
-            name={"Описание"}
-            errors={[]}
-            onInputChange={this.handleDescription}
-          />
-          <FormCurrencyInput
-            name={"Ожидаемые поступления"}
-            errors={[]}
-            onInputChange={this.handleExpectedEnrollment}
-          />
+          <PopupColumn>
+            <FormSelect
+              name={"Тип"}
+              errors={[]}
+              onInputChange={this.handleBucketType}
+            />
+            <FormInput
+              name={"Название"}
+              errors={[]}
+              onInputChange={this.handleName}
+            />
+            <FormInput
+              name={"Провайдер"}
+              errors={[]}
+              onInputChange={this.handleProvider}
+            />
+            <FormTextArea
+              name={"Описание"}
+              errors={[]}
+              onInputChange={this.handleDescription}
+            />
+            <FormCurrencyInput
+              name={"Ожидаемые поступления"}
+              errors={[]}
+              onInputChange={this.handleExpectedEnrollment}
+            />
+            <PrimaryBlockButton
+              sendRequest={this.sendRequest}
+              loading={false}
+              buttonName="Создать"
+              buttonEnabled={true}
+            />
+          </PopupColumn>
 
-          <FormColorPicker
-            name={"Цвет"}
-            errors={[]}
-            onInputChange={this.handleColor}
-          />
+          <PopupColumn>
+            <ExampleBody>
+              <BucketItem
+                itemProvider={provider}
+                itemTitle={name}
+                itemType={bucketType}
+                itemActualBalance={145.23}
+                backgroundColor={color}
+              />
+            </ExampleBody>
 
-          <PrimaryBlockButton
-            sendRequest={this.sendRequest}
-            loading={false}
-            buttonName="Создать"
-            buttonEnabled={true}
-          />
-
+            <FormColorPicker
+              name={"Цвет"}
+              errors={[]}
+              onInputChange={this.handleColor}
+            />
+          </PopupColumn>
         </PopupBody>
       </PopupDiv>
     )

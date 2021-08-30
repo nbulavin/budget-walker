@@ -3,7 +3,7 @@ import { BlockDiv } from "../../../common/styles";
 import {COLORS} from "../../../../const/colors";
 
 export const PopupDiv = styled(BlockDiv)`
-  width: 300px;
+  width: 600px;
   height: auto;
   padding: 0;
 `;
@@ -21,4 +21,28 @@ export const PopupHeader = styled.div`
 
 export const PopupBody = styled.div`
   padding: 0 10px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+
+export const ExampleBody = styled.div`
+  border: 2px solid ${COLORS.borderColor};
+  height: 200px;
+  width: 276px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  flex-wrap: wrap;
+  justify-content: center;
+  pointer-events: none;
+  margin-bottom: 10px;
+`;
+
+export const PopupColumn = styled.div`
+  width: 280px;
 `;

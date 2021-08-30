@@ -12,7 +12,9 @@ class FormColorPicker extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ currentColor: `#${Math.floor(Math.random() * 16777215).toString(16)}` });
+    const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`
+    this.setState({ currentColor: color });
+    this.props.onInputChange(color);
   }
 
   handleInputChange = (colorOption) => {

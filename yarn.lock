@@ -6174,6 +6174,11 @@
     "has" "^1.0.3"
     "side-channel" "^1.0.4"
 
+"invert-color@^2.0.0":
+  "integrity" "sha512-9s6IATlhOAr0/0MPUpLdMpk81ixIu8IqwPwORssXBauFT/4ff/iyEOcojd0UYuPwkDbJvL1+blIZGhqVIaAm5Q=="
+  "resolved" "https://registry.npmjs.org/invert-color/-/invert-color-2.0.0.tgz"
+  "version" "2.0.0"
+
 "ip-regex@^2.1.0":
   "integrity" "sha1-+ni/XS5pE8kRzp+BnuUUa7bYROk="
   "resolved" "https://registry.npmjs.org/ip-regex/-/ip-regex-2.1.0.tgz"

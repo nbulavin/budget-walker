@@ -6,11 +6,11 @@ import {
 class BucketItem extends React.Component {
   render() {
     const {
-      itemProvider, itemTitle, itemType, itemActualBalance,
+      itemProvider, itemTitle, itemType, itemActualBalance, backgroundColor
     } = this.props;
 
     return (
-      <ItemDiv>
+      <ItemDiv backgroundColor={backgroundColor}>
         <ItemHeader>
           {itemProvider}
         </ItemHeader>
