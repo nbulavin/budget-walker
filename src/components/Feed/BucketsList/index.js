@@ -1,17 +1,21 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { ThreeDots } from '@agney/react-loading';
-import {
-  BucketsListDiv, ListDiv, ListFooter, ListFooterText, ListHeader, LoadingDiv,
-} from './styles';
 import BucketItem from './BucketItem';
-import apiClient from '../../../helpers/graphQlClient';
-import { showAuthToken } from '../../../helpers/authorization';
-import AddBucketItem from "./AddBucketItem";
-import TextButton from "../../common/buttons/TextButton";
-import { GET_BUCKETS_LIST } from "../../../graphql/Feed/BucketListGql";
-import Modal from "../../common/Modal";
-import AddBucketPopup from "./AddBucketPopup";
+import { authApiClient } from '../../../helpers/graphQlClient';
+import AddBucketItem from './AddBucketItem';
+import TextButton from '../../common/buttons/TextButton';
+import { GET_BUCKETS_LIST } from '../../../graphql/Feed/BucketListGql';
+import Modal from '../../common/Modal';
+import AddBucketPopup from './AddBucketPopup';
+import {
+  BucketsListDiv,
+  ListDiv,
+  ListFooter,
+  ListFooterText,
+  ListHeader,
+  LoadingDiv,
+} from './styles';
 
 const BucketsList = inject('BucketListStore')(observer(class BucketsList extends React.Component {
   constructor(props) {
@@ -28,11 +32,9 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
 
   componentDidMount() {
     const rootObject = this;
-    const client = apiClient;
     const bucketsStore = this.props.BucketListStore;
 
-    client.setHeader('Authorization', showAuthToken());
-    client.request(GET_BUCKETS_LIST)
+    authApiClient.request(GET_BUCKETS_LIST)
       .then((data) => {
         bucketsStore.bindBuckets(data.getBucketsList.list, data.getBucketsList.totalCount);
       }).catch((response) => {

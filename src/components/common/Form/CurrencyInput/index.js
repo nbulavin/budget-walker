@@ -1,5 +1,12 @@
 import React from 'react';
-import { ErrorsDiv, ErrorString, InputSectionDiv, NameDiv, CurrencyInputDiv, StyledCurrencyInput } from './styles';
+import {
+  ErrorsDiv,
+  ErrorString,
+  InputSectionDiv,
+  NameDiv,
+  CurrencyInputDiv,
+  StyledCurrencyInput
+} from './styles';
 
 class FormCurrencyInput extends React.Component {
   constructor(props) {

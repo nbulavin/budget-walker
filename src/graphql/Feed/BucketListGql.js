@@ -14,3 +14,32 @@ export const GET_BUCKETS_LIST = gql`
     }
   }
 `;
+
+export const ADD_BUCKET_ITEM = gql`
+  mutation CreateBucketItem(
+    $name: String!,
+    $bucketType: TypeEnum!,
+    $expectedEnrollment: String,
+    $color: String,
+    $description: String,
+    $provider: String
+  )  {
+    createBucket(
+      name: $name
+      bucketType: $bucketType
+      expectedEnrollment: $expectedEnrollment
+      color: $color
+      description: $description
+      provider: $provider
+      ) {
+      bucket {
+        id
+        name
+        bucketType
+        color
+        provider
+      }
+      errors
+    }
+  }
+`;

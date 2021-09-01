@@ -1,5 +1,9 @@
 import { GraphQLClient } from 'graphql-request';
+import { showAuthToken } from "./authorization";
 
-const apiClient = new GraphQLClient('http://localhost:3001/graphql');
+export const apiClient = new GraphQLClient('http://localhost:3001/graphql');
 
-export default apiClient;
+export const authApiClient = new GraphQLClient(
+  'http://localhost:3001/graphql',
+  { headers: { 'Authorization': showAuthToken() } }
+);

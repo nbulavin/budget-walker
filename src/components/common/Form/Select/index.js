@@ -1,6 +1,13 @@
 import React from 'react';
-
-import { ErrorsDiv, ErrorString, InputSectionDiv, NameDiv, SelectDiv, StyledSelect, reactSelectStyles } from './styles';
+import {
+  ErrorsDiv,
+  ErrorString,
+  InputSectionDiv,
+  NameDiv,
+  SelectDiv,
+  StyledSelect,
+  reactSelectStyles
+} from './styles';
 
 const defaultValue = {
   value: null, label: 'Тип'
@@ -26,12 +33,14 @@ class FormSelect extends React.Component {
   }
 
   render() {
-    const { name, errors, onInputChange } = this.props
+    const { name, errors } = this.props
 
     return (
       <InputSectionDiv>
         <NameDiv>
-          {name}
+          {
+            this.state.filledIn === true ? name : ''
+          }
         </NameDiv>
         <SelectDiv>
           <StyledSelect

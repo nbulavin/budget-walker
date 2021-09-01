@@ -46,3 +46,8 @@ export const ExampleBody = styled.div`
 export const PopupColumn = styled.div`
   width: 280px;
 `;
+
+export const ButtonBlock = styled.div`
+  width: 100%;
+  margin: 10px 0;
+`;

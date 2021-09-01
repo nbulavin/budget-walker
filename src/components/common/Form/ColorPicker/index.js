@@ -1,5 +1,12 @@
 import React from 'react';
-import { ErrorsDiv, ErrorString, InputSectionDiv, NameDiv, ColorPickerDiv, StyledColorPicker } from './styles';
+import {
+  ErrorsDiv,
+  ErrorString,
+  InputSectionDiv,
+  NameDiv,
+  ColorPickerDiv,
+  StyledColorPicker
+} from './styles';
 
 class FormColorPicker extends React.Component {
   constructor(props) {

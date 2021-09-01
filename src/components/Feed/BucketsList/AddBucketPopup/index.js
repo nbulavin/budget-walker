@@ -1,14 +1,24 @@
 import React from 'react';
+import { observer, inject } from 'mobx-react';
+import { authApiClient } from '../../../../helpers/graphQlClient';
+import { ADD_BUCKET_ITEM } from '../../../../graphql/Feed/BucketListGql';
 import FormInput from '../../../common/Form/Input';
 import FormSelect from '../../../common/Form/Select';
-import FormTextArea from "../../../common/Form/TextArea";
-import FormCurrencyInput from "../../../common/Form/CurrencyInput";
-import FormColorPicker from "../../../common/Form/ColorPicker";
-import PrimaryBlockButton from "../../../common/buttons/PrimaryBlockButton";
-import BucketItem from "../BucketItem";
-import { ExampleBody, PopupBody, PopupColumn, PopupDiv, PopupHeader } from './styles';
+import FormTextArea from '../../../common/Form/TextArea';
+import FormCurrencyInput from '../../../common/Form/CurrencyInput';
+import FormColorPicker from '../../../common/Form/ColorPicker';
+import PrimaryBlockButton from '../../../common/buttons/PrimaryBlockButton';
+import BucketItem from '../BucketItem';
+import {
+  ButtonBlock,
+  ExampleBody,
+  PopupBody,
+  PopupColumn,
+  PopupDiv,
+  PopupHeader
+} from './styles';
 
-class AddBucketPopup extends React.Component {
+const AddBucketPopup = inject('BucketListStore')(observer(class AddBucketPopup extends React.Component {
   constructor(props) {
     super(props);
 
@@ -19,6 +29,7 @@ class AddBucketPopup extends React.Component {
       bucketType: null,
       expectedEnrollment: null,
       color: '',
+      inProgress: false
     }
   }
 
@@ -46,8 +57,31 @@ class AddBucketPopup extends React.Component {
     this.setState({ color: text })
   }
 
+  sendBucketCreateRequest = () => {
+    console.log('Clicked');
+    this.setState({ inProgress: true })
+    const hash = {
+      name: this.state.name,
+      bucketType: this.state.bucketType,
+      expectedEnrollment: this.state.expectedEnrollment,
+      color: this.state.color,
+      description: this.state.description,
+      provider: this.state.provider,
+    };
+
+    authApiClient.request(ADD_BUCKET_ITEM, hash)
+      .then((data) => {
+        console.log(data.createBucket.bucket)
+        this.props.BucketListStore.bindAdditionalBucket(data.createBucket.bucket);
+      }).catch((response) => {
+        console.log(response)
+      }).finally(() => {
+        this.setState({ inProgress: false })
+      });
+  }
+
   render() {
-    const { name, provider, bucketType, color } = this.state;
+    const { name, provider, bucketType, color, inProgress } = this.state;
 
     return (
       <PopupDiv>
@@ -81,12 +115,6 @@ class AddBucketPopup extends React.Component {
               errors={[]}
               onInputChange={this.handleExpectedEnrollment}
             />
-            <PrimaryBlockButton
-              sendRequest={this.sendRequest}
-              loading={false}
-              buttonName="Создать"
-              buttonEnabled={true}
-            />
           </PopupColumn>
 
           <PopupColumn>
@@ -106,10 +134,20 @@ class AddBucketPopup extends React.Component {
               onInputChange={this.handleColor}
             />
           </PopupColumn>
+
+          <ButtonBlock>
+            <PrimaryBlockButton
+              sendRequest={this.sendBucketCreateRequest}
+              loading={inProgress}
+              buttonName="Создать"
+              buttonEnabled={true}
+            />
+          </ButtonBlock>
+
         </PopupBody>
       </PopupDiv>
     )
   }
-}
+}));
 
 export default AddBucketPopup;

@@ -7,8 +7,9 @@ export const InputSectionDiv = styled.div`
 `;
 
 export const NameDiv = styled.div`
-  font-size: 16px;
+  font-size: 12px;
   text-align: left;
+  height: 16px;
 `;
 
 export const SelectDiv = styled.div`

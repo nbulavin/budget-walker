@@ -6,7 +6,8 @@ export default class BucketListStore {
     makeObservable(this, {
       items: observable,
       totalItemsCount: observable,
-      bindBuckets: action
+      bindBuckets: action,
+      bindAdditionalBucket: action
     });
   }
 
@@ -17,4 +18,9 @@ export default class BucketListStore {
     this.items = items.map((elm) => new BucketItem(elm));
     this.totalItemsCount = count;
   };
+
+  bindAdditionalBucket = (item) => {
+    this.items.push(new BucketItem(item));
+    this.totalItemsCount = this.totalItemsCount + 1;
+  }
 }
