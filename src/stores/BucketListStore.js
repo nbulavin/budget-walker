@@ -3,13 +3,17 @@ import BucketItem from './BucketItem';
 
 export default class BucketListStore {
   constructor() {
-    makeObservable(this);
+    makeObservable(this, {
+      items: observable,
+      totalItemsCount: observable,
+      bindBuckets: action
+    });
   }
 
-  @observable items = [];
-  @observable totalItemsCount = 0;
+  items = [];
+  totalItemsCount = 0;
 
-  @action bindBuckets = (items, count) => {
+  bindBuckets = (items, count) => {
     this.items = items.map((elm) => new BucketItem(elm));
     this.totalItemsCount = count;
   };

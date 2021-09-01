@@ -11,9 +11,7 @@ import SIGN_IN_MUTATION from '../../graphql/LoginGql';
 import { addAuthToken } from '../../helpers/authorization';
 import ROUTE_URLS from '../../const/routeUrls';
 
-@inject('LoginStore', 'UserStore')
-@observer
-class Login extends React.Component {
+const Login = inject('LoginStore', 'UserStore')(observer(class Login extends React.Component {
   constructor(props) {
     super(props);
 
@@ -78,6 +76,6 @@ class Login extends React.Component {
       </CentralizedDiv>
     );
   }
-}
+}));
 
 export default Login;

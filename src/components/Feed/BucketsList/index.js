@@ -13,9 +13,7 @@ import { GET_BUCKETS_LIST } from "../../../graphql/Feed/BucketListGql";
 import Modal from "../../common/Modal";
 import AddBucketPopup from "./AddBucketPopup";
 
-@inject('BucketListStore')
-@observer
-class BucketsList extends React.Component {
+const BucketsList = inject('BucketListStore')(observer(class BucketsList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -98,6 +96,6 @@ class BucketsList extends React.Component {
       </BucketsListDiv>
     );
   }
-}
+}));
 
 export default BucketsList;

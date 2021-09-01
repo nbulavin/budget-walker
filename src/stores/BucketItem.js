@@ -4,20 +4,27 @@ export default class BucketItem {
   constructor(rawBucketItem) {
     this.createBucketItem(rawBucketItem);
 
-    makeObservable(this);
+    makeObservable(this, {
+      name: observable,
+      bucketType: observable,
+      id: observable,
+      provider: observable,
+      currentBalance: observable,
+      createBucketItem: action
+    });
   }
 
-  @observable name;
+  name;
 
-  @observable bucketType;
+  bucketType;
 
-  @observable id;
+  id;
 
-  @observable provider;
+  provider;
 
-  @observable currentBalance;
+  currentBalance;
 
-  @action createBucketItem = (rawBucketItem) => {
+  createBucketItem = (rawBucketItem) => {
     this.name = rawBucketItem.name;
     this.bucketType = rawBucketItem.bucketType;
     this.id = rawBucketItem.id;

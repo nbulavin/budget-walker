@@ -2,9 +2,7 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { StyledInput } from './styles';
 
-@inject('LoginStore')
-@observer
-class FormSection extends React.Component {
+const FormSection = inject('LoginStore')(observer(class FormSection extends React.Component {
   constructor(props) {
     super(props);
 
@@ -32,6 +30,6 @@ class FormSection extends React.Component {
       </div>
     );
   }
-}
+}));
 
 export default FormSection;
