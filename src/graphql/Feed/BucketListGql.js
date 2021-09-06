@@ -19,7 +19,7 @@ export const ADD_BUCKET_ITEM = gql`
   mutation CreateBucketItem(
     $name: String!,
     $bucketType: TypeEnum!,
-    $expectedEnrollment: String,
+    $expectedEnrollment: Int,
     $color: String,
     $description: String,
     $provider: String

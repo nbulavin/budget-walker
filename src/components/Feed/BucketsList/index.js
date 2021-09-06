@@ -93,7 +93,7 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
           <TextButton buttonName={expandingButtonText} onClickAction={this.toggleListExpanding}/>
         </ListFooter>
         <Modal active={addBucketModalOpened} closeModal={this.closeAddBucketModal}>
-          <AddBucketPopup />
+          <AddBucketPopup closeModal={this.closeAddBucketModal}/>
         </Modal>
       </BucketsListDiv>
     );

@@ -73,6 +73,7 @@ const AddBucketPopup = inject('BucketListStore')(observer(class AddBucketPopup e
       .then((data) => {
         console.log(data.createBucket.bucket)
         this.props.BucketListStore.bindAdditionalBucket(data.createBucket.bucket);
+        this.props.closeModal();
       }).catch((response) => {
         console.log(response)
       }).finally(() => {
