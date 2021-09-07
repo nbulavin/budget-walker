@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { SliderPicker } from 'react-color';
-import { COLORS } from '../../../../const/colors';
+import COLORS from '../../../../const/colors';
 
 export const InputSectionDiv = styled.div`
 

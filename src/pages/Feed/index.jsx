@@ -1,6 +1,6 @@
 import React from 'react';
 import BackgroundTitle from '../../components/common/BackgroundTitle';
-import ResultingInfoSection from '../../components/Feed/ResultingInfoSection/index';
+import ResultingInfoSection from '../../components/Feed/ResultingInfoSection';
 import BucketsList from '../../components/Feed/BucketsList';
 import { BackgroundDiv } from '../../components/common/styles';
 import { LeftAlignedDiv, RightAlignedDiv } from './styles';

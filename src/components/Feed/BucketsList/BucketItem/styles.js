@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import invert from 'invert-color';
-import { isEmpty } from '../../../../helpers/stringHelper';
-import { COLORS } from '../../../../const/colors';
+import isEmpty from '../../../../helpers/stringHelper';
+import COLORS from '../../../../const/colors';
 
 export const ItemDiv = styled.div`
   border-radius: 12px;

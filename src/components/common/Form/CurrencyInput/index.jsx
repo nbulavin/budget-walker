@@ -25,11 +25,13 @@ class FormCurrencyInput extends React.Component {
 
   render() {
     const { name, errors } = this.props;
+    const { filledIn } = this.state;
+
     return (
       <InputSectionDiv>
         <NameDiv>
           {
-            this.state.filledIn === true ? name : ''
+            filledIn === true ? name : ''
           }
         </NameDiv>
         <CurrencyInputDiv>

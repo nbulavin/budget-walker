@@ -22,7 +22,6 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
     super(props);
 
     this.state = {
-      bucketListErrors: [],
       dataFetched: false,
       listErrors: [],
       expandedList: false,

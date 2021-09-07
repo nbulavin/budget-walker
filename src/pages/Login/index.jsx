@@ -54,10 +54,10 @@ const Login = inject('LoginStore', 'UserStore')(observer(class Login extends Rea
   }
 
   render() {
-    const { loginErrors } = this.state;
+    const { loginErrors, redirect } = this.state;
     const { email, password, inProgress } = this.props.LoginStore.params;
     const buttonEnabled = (email !== '' && password !== '' && !inProgress);
-    if (this.state.redirect === true) {
+    if (redirect === true) {
       return (<Redirect to={ROUTE_URLS.feed} />);
     }
     return (

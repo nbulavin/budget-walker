@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BlockDiv } from '../../../common/styles';
-import { COLORS } from '../../../../const/colors';
+import COLORS from '../../../../const/colors';
 
 export const PopupDiv = styled(BlockDiv)`
   width: 600px;

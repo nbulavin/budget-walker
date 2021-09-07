@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FullWidthDiv } from '../../common/styles';
-import { COLORS } from '../../../const/colors';
+import COLORS from '../../../const/colors';
 
 export const BucketsListDiv = styled(FullWidthDiv)`
   padding-top: 0;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import AppDiv from './styles';
-import Placeholder from './Placeholder/index';
-import Login from './Login/index';
+import Placeholder from './Placeholder';
+import Login from './Login';
 import Feed from './Feed';
 import { isLoggedIn } from '../helpers/authorization';
 import ROUTE_URLS from '../const/routeUrls';

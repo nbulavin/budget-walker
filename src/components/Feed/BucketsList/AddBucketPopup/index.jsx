@@ -58,7 +58,6 @@ const AddBucketPopup = inject('BucketListStore')(observer(class AddBucketPopup e
   }
 
   sendBucketCreateRequest = () => {
-    console.log('Clicked');
     this.setState({ inProgress: true });
     const hash = {
       name: this.state.name,

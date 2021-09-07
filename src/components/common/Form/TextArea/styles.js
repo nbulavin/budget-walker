@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import TextareaAutosize from 'react-textarea-autosize';
-import { COLORS } from '../../../../const/colors';
+import COLORS from '../../../../const/colors';
 
 export const InputSectionDiv = styled.div`
 

@@ -1,4 +1,4 @@
-import { isEmpty } from './stringHelper';
+import isEmpty from './stringHelper';
 
 export function addAuthToken(token) {
   localStorage.setItem('Authorization', token);

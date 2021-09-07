@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import ReactSelect from 'react-select';
-import { COLORS } from '../../../../const/colors';
+import COLORS from '../../../../const/colors';
 
 export const InputSectionDiv = styled.div`
 

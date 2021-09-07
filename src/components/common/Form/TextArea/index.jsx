@@ -7,7 +7,7 @@ import {
   StyledTextArea,
   TextAreaDiv,
 } from './styles';
-import { COLORS } from '../../../../const/colors';
+import COLORS from '../../../../const/colors';
 
 class FormTextArea extends React.Component {
   constructor(props) {
@@ -25,12 +25,13 @@ class FormTextArea extends React.Component {
 
   render() {
     const { name, errors } = this.props;
+    const { filledIn } = this.state;
 
     return (
       <InputSectionDiv>
         <NameDiv>
           {
-            this.state.filledIn === true ? name : ''
+            filledIn === true ? name : ''
           }
         </NameDiv>
         <TextAreaDiv>

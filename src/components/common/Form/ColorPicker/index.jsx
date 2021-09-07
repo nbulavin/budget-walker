@@ -13,7 +13,6 @@ class FormColorPicker extends React.Component {
     super(props);
 
     this.state = {
-      filledIn: false,
       currentColor: '',
     };
   }
@@ -25,8 +24,6 @@ class FormColorPicker extends React.Component {
   }
 
   handleInputChange = (colorOption) => {
-    console.log(colorOption);
-    console.log(colorOption.hex);
     this.setState({ currentColor: colorOption.hex });
     this.props.onInputChange(colorOption.hex);
   }

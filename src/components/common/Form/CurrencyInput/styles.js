@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import CurrencyInput from 'react-currency-input-field';
-import { COLORS } from '../../../../const/colors';
+import COLORS from '../../../../const/colors';
 
 export const InputSectionDiv = styled.div`
 
