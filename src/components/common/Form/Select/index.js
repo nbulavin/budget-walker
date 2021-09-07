@@ -6,12 +6,13 @@ import {
   NameDiv,
   SelectDiv,
   StyledSelect,
-  reactSelectStyles
+  reactSelectStyles,
 } from './styles';
 
 const defaultValue = {
-  value: null, label: 'Тип'
-}
+  value: null,
+  label: 'Тип',
+};
 const selectOptions = [
   { value: 'credit_card', label: 'Карта' },
   { value: 'account', label: 'Лицевой счет' },
@@ -22,8 +23,8 @@ class FormSelect extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state ={
-      filledIn: false
+    this.state = {
+      filledIn: false,
     };
   }
 
@@ -33,7 +34,7 @@ class FormSelect extends React.Component {
   }
 
   render() {
-    const { name, errors } = this.props
+    const { name, errors } = this.props;
 
     return (
       <InputSectionDiv>
@@ -62,7 +63,7 @@ class FormSelect extends React.Component {
           }
         </ErrorsDiv>
       </InputSectionDiv>
-    )
+    );
   }
 }
 

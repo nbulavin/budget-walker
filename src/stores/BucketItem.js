@@ -10,7 +10,7 @@ export default class BucketItem {
       id: observable,
       provider: observable,
       currentBalance: observable,
-      createBucketItem: action
+      createBucketItem: action,
     });
   }
 

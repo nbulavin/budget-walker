@@ -7,8 +7,8 @@ export const ModalBackgroundDiv = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  opacity: ${props => props.active ? "1" : "0"};
-  pointer-events: ${props => props.active ? "all" : "none"};
+  opacity: ${(props) => (props.active ? '1' : '0')};
+  pointer-events: ${(props) => (props.active ? 'all' : 'none')};
   z-index: 9999;
   display: flex;
   align-content: center;

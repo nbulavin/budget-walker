@@ -5,26 +5,26 @@ import {
   InputSectionDiv,
   NameDiv,
   CurrencyInputDiv,
-  StyledCurrencyInput
+  StyledCurrencyInput,
 } from './styles';
 
 class FormCurrencyInput extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state ={
-      filledIn: false
+    this.state = {
+      filledIn: false,
     };
   }
 
   handleInputChange = (text) => {
     this.setState({ filledIn: text != null });
-    const currencyInNumber = parseFloat(text) * 100
+    const currencyInNumber = parseFloat(text) * 100;
     this.props.onInputChange(currencyInNumber);
   }
 
   render() {
-    const { name, errors } = this.props
+    const { name, errors } = this.props;
     return (
       <InputSectionDiv>
         <NameDiv>
@@ -41,7 +41,8 @@ class FormCurrencyInput extends React.Component {
             decimalSeparator="."
             groupSeparator=" "
             onValueChange={this.handleInputChange}
-            inError={errors.length > 0}/>
+            inError={errors.length > 0}
+          />
         </CurrencyInputDiv>
         <ErrorsDiv>
           {
@@ -51,7 +52,7 @@ class FormCurrencyInput extends React.Component {
           }
         </ErrorsDiv>
       </InputSectionDiv>
-    )
+    );
   }
 }
 

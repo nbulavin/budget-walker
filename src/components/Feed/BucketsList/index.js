@@ -26,7 +26,7 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
       dataFetched: false,
       listErrors: [],
       expandedList: false,
-      addBucketModalOpened: false
+      addBucketModalOpened: false,
     };
   }
 
@@ -45,16 +45,16 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
   }
 
   toggleListExpanding = () => {
-    this.setState({ expandedList: !this.state.expandedList })
+    this.setState({ expandedList: !this.state.expandedList });
   }
 
   openAddBucketModal = () => {
-    console.log('plus is clicked')
-    this.setState({ addBucketModalOpened: true })
+    console.log('plus is clicked');
+    this.setState({ addBucketModalOpened: true });
   }
 
   closeAddBucketModal = () => {
-    this.setState({ addBucketModalOpened: false })
+    this.setState({ addBucketModalOpened: false });
   }
 
   render() {
@@ -85,15 +85,18 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
                 />
               ))
             }
-            <AddBucketItem openAddBucketModal={this.openAddBucketModal}/>
+            <AddBucketItem openAddBucketModal={this.openAddBucketModal} />
           </ListDiv>
         )}
         <ListFooter>
-          <ListFooterText>Всего счетов: {totalItemsCount}</ListFooterText>
-          <TextButton buttonName={expandingButtonText} onClickAction={this.toggleListExpanding}/>
+          <ListFooterText>
+            Всего счетов:
+            {totalItemsCount}
+          </ListFooterText>
+          <TextButton buttonName={expandingButtonText} onClickAction={this.toggleListExpanding} />
         </ListFooter>
         <Modal active={addBucketModalOpened} closeModal={this.closeAddBucketModal}>
-          <AddBucketPopup closeModal={this.closeAddBucketModal}/>
+          <AddBucketPopup closeModal={this.closeAddBucketModal} />
         </Modal>
       </BucketsListDiv>
     );

@@ -25,7 +25,7 @@ export const ListDiv = styled.div`
   justify-content: flex-start;
   overflow: hidden;
   height: auto;
-  max-height: ${props => props.expanded ? "auto" : "136px"}; // replace auto with 5000px to enable animation
+  max-height: ${(props) => (props.expanded ? 'auto' : '136px')}; // replace auto with 5000px to enable animation
   // transition: max-height .3s ease-in-out;
 `;
 

@@ -1,12 +1,19 @@
 import React from 'react';
-import { ErrorsDiv, ErrorString, StyledFormInput, InputDiv, InputSectionDiv, NameDiv } from './styles';
+import {
+  ErrorsDiv,
+  ErrorString,
+  StyledFormInput,
+  InputDiv,
+  InputSectionDiv,
+  NameDiv,
+} from './styles';
 
 class FormInput extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state ={
-      filledIn: false
+    this.state = {
+      filledIn: false,
     };
   }
 
@@ -16,7 +23,7 @@ class FormInput extends React.Component {
   }
 
   render() {
-    const { name, errors } = this.props
+    const { name, errors } = this.props;
     return (
       <InputSectionDiv>
         <NameDiv>
@@ -25,7 +32,7 @@ class FormInput extends React.Component {
           }
         </NameDiv>
         <InputDiv>
-          <StyledFormInput placeholder={name} onChange={this.handleInputChange} inError={errors.length > 0}/>
+          <StyledFormInput placeholder={name} onChange={this.handleInputChange} inError={errors.length > 0} />
         </InputDiv>
         <ErrorsDiv>
           {
@@ -35,7 +42,7 @@ class FormInput extends React.Component {
           }
         </ErrorsDiv>
       </InputSectionDiv>
-    )
+    );
   }
 }
 

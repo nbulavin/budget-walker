@@ -1,21 +1,21 @@
 import styled from 'styled-components';
 import invert from 'invert-color';
 import { isEmpty } from '../../../../helpers/stringHelper';
-import { COLORS } from "../../../../const/colors";
+import { COLORS } from '../../../../const/colors';
 
 export const ItemDiv = styled.div`
   border-radius: 12px;
   width: 160px;
   height: 120px;
   margin: 8px;
-  background-color: ${props => isEmpty(props.backgroundColor) ? 'white' : props.backgroundColor};
+  background-color: ${(props) => (isEmpty(props.backgroundColor) ? 'white' : props.backgroundColor)};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 2px 2px 9px rgb(0 0 0 / 13%);
   transition: 0.3s;
   opacity: 1;
-  color: ${props => isEmpty(props.backgroundColor) ? COLORS.text : invert(props.backgroundColor, true)};
+  color: ${(props) => (isEmpty(props.backgroundColor) ? COLORS.text : invert(props.backgroundColor, true))};
 
   &:hover {
     opacity: 0.5;

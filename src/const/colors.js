@@ -15,5 +15,5 @@ export const COLORS = {
   borderColor: '#8b9aa3',
   errorText: '#FF0000',
   fieldBackground: '#FFFFFF',
-  fieldBackgroundSelected: '#d7dfe5'
+  fieldBackgroundSelected: '#d7dfe5',
 };

@@ -7,7 +7,7 @@ class TextButton extends React.Component {
       <StyledTextButton onClick={this.props.onClickAction}>
         {this.props.buttonName}
       </StyledTextButton>
-    )
+    );
   }
 }
 

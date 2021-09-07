@@ -15,7 +15,7 @@ import {
   PopupBody,
   PopupColumn,
   PopupDiv,
-  PopupHeader
+  PopupHeader,
 } from './styles';
 
 const AddBucketPopup = inject('BucketListStore')(observer(class AddBucketPopup extends React.Component {
@@ -29,37 +29,37 @@ const AddBucketPopup = inject('BucketListStore')(observer(class AddBucketPopup e
       bucketType: null,
       expectedEnrollment: null,
       color: '',
-      inProgress: false
-    }
+      inProgress: false,
+    };
   }
 
   handleBucketType = (text) => {
-    this.setState({ bucketType: text })
+    this.setState({ bucketType: text });
   }
 
   handleName = (text) => {
-    this.setState({ name: text })
+    this.setState({ name: text });
   }
 
   handleProvider = (text) => {
-    this.setState({ provider: text })
+    this.setState({ provider: text });
   }
 
   handleDescription = (text) => {
-    this.setState({ description: text })
+    this.setState({ description: text });
   }
 
   handleExpectedEnrollment = (value) => {
-    this.setState({ expectedEnrollment: value })
+    this.setState({ expectedEnrollment: value });
   }
 
   handleColor = (text) => {
-    this.setState({ color: text })
+    this.setState({ color: text });
   }
 
   sendBucketCreateRequest = () => {
     console.log('Clicked');
-    this.setState({ inProgress: true })
+    this.setState({ inProgress: true });
     const hash = {
       name: this.state.name,
       bucketType: this.state.bucketType,
@@ -71,18 +71,20 @@ const AddBucketPopup = inject('BucketListStore')(observer(class AddBucketPopup e
 
     authApiClient.request(ADD_BUCKET_ITEM, hash)
       .then((data) => {
-        console.log(data.createBucket.bucket)
+        console.log(data.createBucket.bucket);
         this.props.BucketListStore.bindAdditionalBucket(data.createBucket.bucket);
         this.props.closeModal();
       }).catch((response) => {
-        console.log(response)
+        console.log(response);
       }).finally(() => {
-        this.setState({ inProgress: false })
+        this.setState({ inProgress: false });
       });
   }
 
   render() {
-    const { name, provider, bucketType, color, inProgress } = this.state;
+    const {
+      name, provider, bucketType, color, inProgress,
+    } = this.state;
 
     return (
       <PopupDiv>
@@ -92,27 +94,27 @@ const AddBucketPopup = inject('BucketListStore')(observer(class AddBucketPopup e
         <PopupBody>
           <PopupColumn>
             <FormSelect
-              name={"Тип"}
+              name="Тип"
               errors={[]}
               onInputChange={this.handleBucketType}
             />
             <FormInput
-              name={"Название"}
+              name="Название"
               errors={[]}
               onInputChange={this.handleName}
             />
             <FormInput
-              name={"Провайдер"}
+              name="Провайдер"
               errors={[]}
               onInputChange={this.handleProvider}
             />
             <FormTextArea
-              name={"Описание"}
+              name="Описание"
               errors={[]}
               onInputChange={this.handleDescription}
             />
             <FormCurrencyInput
-              name={"Ожидаемые поступления"}
+              name="Ожидаемые поступления"
               errors={[]}
               onInputChange={this.handleExpectedEnrollment}
             />
@@ -130,7 +132,7 @@ const AddBucketPopup = inject('BucketListStore')(observer(class AddBucketPopup e
             </ExampleBody>
 
             <FormColorPicker
-              name={"Цвет"}
+              name="Цвет"
               errors={[]}
               onInputChange={this.handleColor}
             />
@@ -141,13 +143,13 @@ const AddBucketPopup = inject('BucketListStore')(observer(class AddBucketPopup e
               sendRequest={this.sendBucketCreateRequest}
               loading={inProgress}
               buttonName="Создать"
-              buttonEnabled={true}
+              buttonEnabled
             />
           </ButtonBlock>
 
         </PopupBody>
       </PopupDiv>
-    )
+    );
   }
 }));
 

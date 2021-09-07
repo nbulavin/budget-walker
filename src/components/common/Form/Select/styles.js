@@ -26,7 +26,7 @@ export const reactSelectStyles = {
   }),
   valueContainer: (provided, state) => ({
     ...provided,
-    height: 22
+    height: 22,
   }),
   control: (provided, state) => ({
     ...provided,
@@ -35,7 +35,7 @@ export const reactSelectStyles = {
     borderRadius: 5,
     borderWidth: 2,
     boxShadow: 0,
-    borderColor: COLORS.borderColor
+    borderColor: COLORS.borderColor,
   }),
   option: (provided, state) => ({
     ...provided,
@@ -45,13 +45,13 @@ export const reactSelectStyles = {
     paddingLeft: 10,
     background: state.isFocused ? COLORS.fieldBackgroundSelected : COLORS.fieldBackground,
     fontSize: 16,
-    textAlign: 'left'
+    textAlign: 'left',
   }),
   singleValue: (provided, state) => ({
     ...provided,
     opacity: 1,
     color: COLORS.text,
-    fontSize: 16
+    fontSize: 16,
   }),
 };
 

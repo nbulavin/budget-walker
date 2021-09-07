@@ -8,7 +8,7 @@ export default class LoginStore {
       bindCredentialsPassword: action,
       startProgress: action,
       finishProgress: action,
-      cleanStore: action
+      cleanStore: action,
     });
   }
 

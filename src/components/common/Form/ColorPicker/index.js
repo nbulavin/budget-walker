@@ -5,21 +5,21 @@ import {
   InputSectionDiv,
   NameDiv,
   ColorPickerDiv,
-  StyledColorPicker
+  StyledColorPicker,
 } from './styles';
 
 class FormColorPicker extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state ={
+    this.state = {
       filledIn: false,
-      currentColor: ''
+      currentColor: '',
     };
   }
 
   componentDidMount() {
-    const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`
+    const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
     this.setState({ currentColor: color });
     this.props.onInputChange(color);
   }
@@ -56,7 +56,7 @@ class FormColorPicker extends React.Component {
           }
         </ErrorsDiv>
       </InputSectionDiv>
-    )
+    );
   }
 }
 

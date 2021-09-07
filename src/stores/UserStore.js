@@ -4,7 +4,7 @@ export default class UserStore {
   constructor() {
     makeObservable(this, {
       params: observable,
-      bindOption: action
+      bindOption: action,
     });
   }
 
