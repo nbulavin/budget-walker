@@ -9,6 +9,7 @@ export const GET_BUCKETS_LIST = gql`
         bucketType
         provider
         currentBalance
+        color
       }
       totalCount
     }

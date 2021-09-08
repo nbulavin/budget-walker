@@ -80,6 +80,7 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
                   itemTitle={item.name}
                   itemType={item.bucketType}
                   itemActualBalance={item.currentBalance}
+                  backgroundColor={item.color}
                 />
               ))
             }

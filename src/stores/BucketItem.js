@@ -10,6 +10,7 @@ export default class BucketItem {
       id: observable,
       provider: observable,
       currentBalance: observable,
+      color: observable,
       createBucketItem: action,
     });
   }
@@ -24,11 +25,14 @@ export default class BucketItem {
 
   currentBalance;
 
+  color;
+
   createBucketItem = (rawBucketItem) => {
     this.name = rawBucketItem.name;
     this.bucketType = rawBucketItem.bucketType;
     this.id = rawBucketItem.id;
     this.provider = rawBucketItem.provider;
     this.currentBalance = rawBucketItem.currentBalance;
+    this.color = rawBucketItem.color;
   };
 }
