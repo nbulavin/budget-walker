@@ -31,11 +31,11 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
 
   componentDidMount() {
     const rootObject = this;
-    const bucketsStore = this.props.BucketListStore;
+    const { BucketListStore } = this.props;
 
     authApiClient.request(GET_BUCKETS_LIST)
       .then((data) => {
-        bucketsStore.bindBuckets(data.getBucketsList.list, data.getBucketsList.totalCount);
+        BucketListStore.bindBuckets(data.getBucketsList.list, data.getBucketsList.totalCount);
       }).catch((response) => {
         rootObject.setState({ listErrors: response.response.errors.map((elm) => (elm.message)) });
       }).finally(() => {
@@ -44,11 +44,10 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
   }
 
   toggleListExpanding = () => {
-    this.setState({ expandedList: !this.state.expandedList });
+    this.setState((prevState) => ({ expandedList: !prevState.expandedList }));
   }
 
   openAddBucketModal = () => {
-    console.log('plus is clicked');
     this.setState({ addBucketModalOpened: true });
   }
 
@@ -58,7 +57,7 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
 
   render() {
     const { dataFetched, expandedList, addBucketModalOpened } = this.state;
-    const { items, totalItemsCount } = this.props.BucketListStore;
+    const { BucketListStore: { items, totalItemsCount } } = this.props;
     const expandingButtonText = expandedList ? 'Свернуть' : 'Развернуть';
 
     return (

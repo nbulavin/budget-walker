@@ -2,7 +2,9 @@ import React from 'react';
 import { ThreeDots } from '@agney/react-loading';
 import { StyledButton } from './styles';
 
-function PrimaryBlockButton({ loading, buttonEnabled, buttonName, sendRequest }) {
+function PrimaryBlockButton({
+  loading, buttonEnabled, buttonName, sendRequest,
+}) {
   return (
     <StyledButton onClick={sendRequest} disabled={!buttonEnabled}>
       { !loading ? (

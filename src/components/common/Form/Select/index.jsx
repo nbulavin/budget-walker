@@ -29,8 +29,10 @@ class FormSelect extends React.Component {
   }
 
   handleInputChange = (selectedOption) => {
+    const { onInputChange } = this.props;
+
     this.setState({ filledIn: true });
-    this.props.onInputChange(selectedOption.value);
+    onInputChange(selectedOption.value);
   }
 
   render() {

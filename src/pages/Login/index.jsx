@@ -22,20 +22,26 @@ const Login = inject('LoginStore', 'UserStore')(observer(class Login extends Rea
     };
   }
 
+  componentWillUnmount() {
+    const { LoginStore } = this.props;
+
+    this.setState({ loginErrors: [], redirect: false });
+    LoginStore.cleanStore();
+  }
+
   sendRequest() {
     this.setState({ loginErrors: [] });
-    const store = this.props.LoginStore;
-    store.startProgress();
-    const userStore = this.props.UserStore;
+    const { LoginStore, UserStore } = this.props;
+    LoginStore.startProgress();
     const hash = {
-      email: store.params.email,
-      password: store.params.password,
+      email: LoginStore.params.email,
+      password: LoginStore.params.password,
     };
     const rootObject = this;
     apiClient.request(SIGN_IN_MUTATION, hash)
       .then((data) => {
         if (data.signIn.errors.length < 1) {
-          userStore.bindOption(data.signIn.me);
+          UserStore.bindOption(data.signIn.me);
           addAuthToken(data.signIn.token);
           rootObject.setState({ redirect: true });
         } else {
@@ -44,13 +50,8 @@ const Login = inject('LoginStore', 'UserStore')(observer(class Login extends Rea
       }).catch(() => {
         rootObject.setState({ loginErrors: ['Неизвестная ошибка. Попробуйте позже'] });
       }).finally(() => {
-        store.finishProgress();
+        LoginStore.finishProgress();
       });
-  }
-
-  componentWillUnmount() {
-    this.setState({ loginErrors: [], redirect: false });
-    this.props.LoginStore.cleanStore();
   }
 
   render() {

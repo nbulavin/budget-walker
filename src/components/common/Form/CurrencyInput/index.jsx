@@ -18,9 +18,11 @@ class FormCurrencyInput extends React.Component {
   }
 
   handleInputChange = (text) => {
+    const { onInputChange } = this.props;
+
     this.setState({ filledIn: text != null });
     const currencyInNumber = parseFloat(text) * 100;
-    this.props.onInputChange(currencyInNumber);
+    onInputChange(currencyInNumber);
   }
 
   render() {

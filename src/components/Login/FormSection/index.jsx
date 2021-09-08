@@ -11,11 +11,15 @@ const FormSection = inject('LoginStore')(observer(class FormSection extends Reac
   }
 
   handleEmail(text) {
-    this.props.LoginStore.bindCredentialsEmail(text.target.value);
+    const { LoginStore } = this.props;
+
+    LoginStore.bindCredentialsEmail(text.target.value);
   }
 
   handlePassword(text) {
-    this.props.LoginStore.bindCredentialsPassword(text.target.value);
+    const { LoginStore } = this.props;
+
+    LoginStore.bindCredentialsPassword(text.target.value);
   }
 
   render() {

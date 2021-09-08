@@ -59,20 +59,18 @@ const AddBucketPopup = inject('BucketListStore')(observer(class AddBucketPopup e
 
   sendBucketCreateRequest = () => {
     this.setState({ inProgress: true });
+    const {
+      name, bucketType, expectedEnrollment, color, description, provider,
+    } = this.state;
     const hash = {
-      name: this.state.name,
-      bucketType: this.state.bucketType,
-      expectedEnrollment: this.state.expectedEnrollment,
-      color: this.state.color,
-      description: this.state.description,
-      provider: this.state.provider,
+      name, bucketType, expectedEnrollment, color, description, provider,
     };
+    const { BucketListStore, closeModal } = this.props;
 
     authApiClient.request(ADD_BUCKET_ITEM, hash)
       .then((data) => {
-        console.log(data.createBucket.bucket);
-        this.props.BucketListStore.bindAdditionalBucket(data.createBucket.bucket);
-        this.props.closeModal();
+        BucketListStore.bindAdditionalBucket(data.createBucket.bucket);
+        closeModal();
       }).catch((response) => {
         console.log(response);
       }).finally(() => {
