@@ -7,11 +7,16 @@ import Feed from './Feed';
 import { isLoggedIn } from '../helpers/authorization';
 import ROUTE_URLS from '../const/routeUrls';
 
+const PrivateRoute = (props) => {
+  if (!isLoggedIn()) return <Redirect to={ROUTE_URLS.login} />;
+  return <Route {...props} />;
+};
+
 function App() {
   return (
     <AppDiv>
       <Switch>
-        <Route path={ROUTE_URLS.feed} component={Feed} />
+        <PrivateRoute path={ROUTE_URLS.feed} component={Feed} />
         <Route path={ROUTE_URLS.login} component={Login} />
         <Route exact path={ROUTE_URLS.mainPage}>
           {

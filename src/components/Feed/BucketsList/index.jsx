@@ -89,8 +89,7 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
         )}
         <ListFooter>
           <ListFooterText>
-            Всего счетов:
-            {totalItemsCount}
+            Всего счетов: {totalItemsCount}
           </ListFooterText>
           <TextButton buttonName={expandingButtonText} onClickAction={this.toggleListExpanding} />
         </ListFooter>
