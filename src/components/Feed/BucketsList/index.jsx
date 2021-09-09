@@ -2,7 +2,6 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { ThreeDots } from '@agney/react-loading';
 import BucketItem from './BucketItem';
-import { authApiClient } from '../../../helpers/graphQlClient';
 import AddBucketItem from './AddBucketItem';
 import TextButton from '../../common/buttons/TextButton';
 import { GET_BUCKETS_LIST } from '../../../graphql/Feed/BucketListGql';
@@ -16,6 +15,7 @@ import {
   ListHeader,
   LoadingDiv,
 } from './styles';
+import { authRequestSender } from '../../../helpers/requestSender';
 
 const BucketsList = inject('BucketListStore')(observer(class BucketsList extends React.Component {
   constructor(props) {
@@ -30,17 +30,25 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
   }
 
   componentDidMount() {
-    const rootObject = this;
+    authRequestSender(GET_BUCKETS_LIST,
+      {},
+      this.handleRequestSuccess,
+      this.handleRequestFailure,
+      this.applyRequestFinalAction);
+  }
+
+  handleRequestSuccess = (data) => {
     const { BucketListStore } = this.props;
 
-    authApiClient.request(GET_BUCKETS_LIST)
-      .then((data) => {
-        BucketListStore.bindBuckets(data.getBucketsList.list, data.getBucketsList.totalCount);
-      }).catch((response) => {
-        rootObject.setState({ listErrors: response.response.errors.map((elm) => (elm.message)) });
-      }).finally(() => {
-        rootObject.setState({ dataFetched: true });
-      });
+    BucketListStore.bindBuckets(data.getBucketsList.list, data.getBucketsList.totalCount);
+  }
+
+  handleRequestFailure = (response) => {
+    this.setState({ listErrors: response.response.errors.map((elm) => (elm.message)) });
+  }
+
+  applyRequestFinalAction = () => {
+    this.setState({ dataFetched: true });
   }
 
   toggleListExpanding = () => {

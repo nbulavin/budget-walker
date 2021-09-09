@@ -25,6 +25,7 @@
         "only-warn"
     ],
     "rules": {
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "max-len": ["error", 120]
     }
 }
