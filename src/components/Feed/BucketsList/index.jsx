@@ -1,5 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
+import { withRouter } from "react-router-dom";
 import { ThreeDots } from '@agney/react-loading';
 import BucketItem from './BucketItem';
 import AddBucketItem from './AddBucketItem';
@@ -16,6 +17,7 @@ import {
   LoadingDiv,
 } from './styles';
 import { authRequestSender } from '../../../helpers/requestSender';
+import ROUTE_URLS from '../../../const/routeUrls';
 
 const BucketsList = inject('BucketListStore')(observer(class BucketsList extends React.Component {
   constructor(props) {
@@ -43,8 +45,11 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
     BucketListStore.bindBuckets(data.getBucketsList.list, data.getBucketsList.totalCount);
   }
 
-  handleRequestFailure = (response) => {
-    this.setState({ listErrors: response.response.errors.map((elm) => (elm.message)) });
+  handleRequestFailure = (message, isAuthorizationError) => {
+    if (isAuthorizationError === true) {
+      this.props.history.push(ROUTE_URLS.login)
+    }
+    this.setState({ listErrors: [message] });
   }
 
   applyRequestFinalAction = () => {
@@ -109,4 +114,4 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
   }
 }));
 
-export default BucketsList;
+export default withRouter(BucketsList);
