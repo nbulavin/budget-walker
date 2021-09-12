@@ -51,8 +51,8 @@ class FormColorPicker extends React.Component {
         </ColorPickerDiv>
         <ErrorsDiv>
           {
-            errors.map((item) => (
-              <ErrorString>{item}</ErrorString>
+            errors?.map((item, index) => (
+              <ErrorString key={index}>{item}</ErrorString>
             ))
           }
         </ErrorsDiv>

@@ -1,4 +1,4 @@
-import isEmpty from './stringHelper';
+import stringHelper from './stringHelper';
 
 export function addAuthToken(token) {
   localStorage.setItem('Authorization', token);
@@ -10,5 +10,5 @@ export function showAuthToken() {
 
 export function isLoggedIn() {
   const authToken = showAuthToken();
-  return !isEmpty(authToken);
+  return !stringHelper.isEmpty(authToken);
 }

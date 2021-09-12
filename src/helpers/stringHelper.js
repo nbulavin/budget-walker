@@ -1,5 +1,5 @@
-function isEmpty(str) {
-  return (!str || str.length === 0);
+class stringHelper {
+  isEmpty = (str) => (!str || str.length === 0)
 }
 
-export default isEmpty;
+export default new stringHelper();

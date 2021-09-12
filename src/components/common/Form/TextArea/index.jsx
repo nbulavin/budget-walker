@@ -47,8 +47,8 @@ class FormTextArea extends React.Component {
         </TextAreaDiv>
         <ErrorsDiv>
           {
-            errors.map((item) => (
-              <ErrorString>{item}</ErrorString>
+            errors?.map((item, index) => (
+              <ErrorString key={index}>{item}</ErrorString>
             ))
           }
         </ErrorsDiv>

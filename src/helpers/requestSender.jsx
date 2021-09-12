@@ -4,9 +4,11 @@ import ErrorObject from './ErrorObject';
 export function anonRequestSender(requestSchema, requestData, successCallback, failureCallback, finallyCallback) {
   apiClient.request(requestSchema, requestData)
     .then((data) => {
+      console.log('in request sender')
       successCallback(data);
     }).catch((response) => {
-      failureCallback(response);
+      console.error('anonRequestSender error', response);
+      failureCallback(response.message);
     }).finally(() => {
       finallyCallback();
     });
@@ -18,7 +20,15 @@ export function authRequestSender(requestSchema, requestData, successCallback, f
       successCallback(data);
     }).catch((response) => {
       console.error('authApiClient error', response);
-      const error = new ErrorObject(response.response.errors[0]);
+      let error;
+      if (response.response?.errors[0]) {
+        error = new ErrorObject(response.response.errors[0]);
+      } else {
+        error = {
+          message: response.message,
+          isAuthorizationError: true
+        }
+      }
 
       const { message, isAuthorizationError } = error;
       failureCallback(message, isAuthorizationError);

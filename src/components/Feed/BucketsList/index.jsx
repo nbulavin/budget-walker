@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import { ThreeDots } from '@agney/react-loading';
 import BucketItem from './BucketItem';
 import AddBucketItem from './AddBucketItem';

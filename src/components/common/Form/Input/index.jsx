@@ -25,7 +25,7 @@ class FormInput extends React.Component {
   }
 
   render() {
-    const { name, errors } = this.props;
+    const { name, errors, predefinedType } = this.props;
     const { filledIn } = this.state;
     return (
       <InputSectionDiv>
@@ -35,12 +35,17 @@ class FormInput extends React.Component {
           }
         </NameDiv>
         <InputDiv>
-          <StyledFormInput placeholder={name} onChange={this.handleInputChange} inError={errors.length > 0} />
+          <StyledFormInput
+            placeholder={name}
+            type={predefinedType ?? "text"}
+            onChange={this.handleInputChange}
+            inError={errors?.length > 0}
+          />
         </InputDiv>
         <ErrorsDiv>
           {
-            errors.map((item) => (
-              <ErrorString>{item}</ErrorString>
+            errors?.map((item, index) => (
+              <ErrorString key={index}>{item}</ErrorString>
             ))
           }
         </ErrorsDiv>

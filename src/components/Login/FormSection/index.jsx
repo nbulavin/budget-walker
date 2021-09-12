@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { StyledInput } from './styles';
+import { FormDiv } from './styles';
+import FormInput from '../../common/Form/Input';
 
 const FormSection = inject('LoginStore')(observer(class FormSection extends React.Component {
   constructor(props) {
@@ -13,25 +14,32 @@ const FormSection = inject('LoginStore')(observer(class FormSection extends Reac
   handleEmail(text) {
     const { LoginStore } = this.props;
 
-    LoginStore.bindCredentialsEmail(text.target.value);
+    LoginStore.bindCredentialsEmail(text);
   }
 
   handlePassword(text) {
     const { LoginStore } = this.props;
 
-    LoginStore.bindCredentialsPassword(text.target.value);
+    LoginStore.bindCredentialsPassword(text);
   }
 
   render() {
+    const { errors } = this.props.LoginStore
     return (
-      <div>
-        <div>
-          <StyledInput type="email" placeholder="Email" onChange={this.handleEmail} />
-        </div>
-        <div>
-          <StyledInput type="password" placeholder="Пароль" onChange={this.handlePassword} />
-        </div>
-      </div>
+      <FormDiv>
+        <FormInput
+          name="Email"
+          errors={errors.email}
+          predefinedType={"email"}
+          onInputChange={this.handleEmail}
+        />
+        <FormInput
+          name="Пароль"
+          errors={errors.password}
+          predefinedType={"password"}
+          onInputChange={this.handlePassword}
+        />
+      </FormDiv>
     );
   }
 }));

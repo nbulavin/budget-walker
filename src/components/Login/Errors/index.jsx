@@ -1,9 +1,13 @@
 import React from 'react';
-import { ErrorBlock } from './styles';
+import { ErrorString, ErrorBlock } from './styles';
 
 const Errors = ({ errorsArray }) => (
   <ErrorBlock>
-    {errorsArray.join('\n')}
+    {
+      errorsArray?.map((item, index) => (
+        <ErrorString key={index}>{item}</ErrorString>
+      ))
+    }
   </ErrorBlock>
 );
 

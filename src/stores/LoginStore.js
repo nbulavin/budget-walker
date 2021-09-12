@@ -4,9 +4,12 @@ export default class LoginStore {
   constructor() {
     makeObservable(this, {
       params: observable,
+      errors: observable,
+      startProgress: action,
       bindCredentialsEmail: action,
       bindCredentialsPassword: action,
-      startProgress: action,
+      collectRequestErrors: action,
+      collectCommonErrors: action,
       finishProgress: action,
       cleanStore: action,
     });
@@ -18,6 +21,19 @@ export default class LoginStore {
     inProgress: false,
   };
 
+  errors = {
+    email: [],
+    password: [],
+    common: [],
+  }
+
+  startProgress = () => {
+    this.params.inProgress = true;
+    this.errors.email = [];
+    this.errors.password = [];
+    this.errors.common = [];
+  };
+
   bindCredentialsEmail = (email) => {
     this.params.email = email;
   };
@@ -26,9 +42,14 @@ export default class LoginStore {
     this.params.password = password;
   };
 
-  startProgress = () => {
-    this.params.inProgress = true;
-  };
+  collectRequestErrors = (errors) => {
+    this.errors.email = errors.email;
+    this.errors.password = errors.password;
+  }
+
+  collectCommonErrors = (commonErrors) => {
+    this.errors.common = commonErrors;
+  }
 
   finishProgress = () => {
     this.params.inProgress = false;
