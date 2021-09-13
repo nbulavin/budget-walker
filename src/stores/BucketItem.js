@@ -32,7 +32,7 @@ export default class BucketItem {
     this.bucketType = rawBucketItem.bucketType;
     this.id = rawBucketItem.id;
     this.provider = rawBucketItem.provider;
-    this.currentBalance = rawBucketItem.currentBalance;
+    this.currentBalance = rawBucketItem.currentBalance || 0;
     this.color = rawBucketItem.color;
   };
 }

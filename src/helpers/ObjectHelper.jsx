@@ -1,5 +1,5 @@
-class objectHelper {
+class ObjectHelper {
   isEmpty = (obj) => (Object.keys(obj).length === 0)
 }
 
-export default new objectHelper();
+export default new ObjectHelper();

@@ -1,14 +1,15 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { authApiClient } from '../../../../helpers/graphQlClient';
-import { ADD_BUCKET_ITEM } from '../../../../graphql/Feed/BucketListGql';
 import FormInput from '../../../common/Form/Input';
 import FormSelect from '../../../common/Form/Select';
 import FormTextArea from '../../../common/Form/TextArea';
 import FormCurrencyInput from '../../../common/Form/CurrencyInput';
 import FormColorPicker from '../../../common/Form/ColorPicker';
+import ObjectHelper from '../../../../helpers/ObjectHelper';
+import { authRequestSender } from '../../../../helpers/requestSender';
 import PrimaryBlockButton from '../../../common/buttons/PrimaryBlockButton';
 import BucketItem from '../BucketItem';
+import { ADD_BUCKET_ITEM } from '../../../../graphql/Feed/BucketListGql';
 import {
   ButtonBlock,
   ExampleBody,
@@ -18,136 +19,155 @@ import {
   PopupHeader,
 } from './styles';
 
-const AddBucketPopup = inject('BucketListStore')(observer(class AddBucketPopup extends React.Component {
-  constructor(props) {
-    super(props);
+const AddBucketPopup = inject('BucketListStore', 'NewBucketStore')(observer(
+  class AddBucketPopup extends React.Component {
+    constructor(props) {
+      super(props);
+    }
 
-    this.state = {
-      name: '',
-      provider: '',
-      description: '',
-      bucketType: null,
-      expectedEnrollment: null,
-      color: '',
-      inProgress: false,
-    };
-  }
+    handleBucketType = (text) => {
+      const { NewBucketStore } = this.props;
+      NewBucketStore.bindBucketInfo('bucketType', text);
+    }
 
-  handleBucketType = (text) => {
-    this.setState({ bucketType: text });
-  }
+    handleName = (text) => {
+      const { NewBucketStore } = this.props;
+      NewBucketStore.bindBucketInfo('name', text);
+    }
 
-  handleName = (text) => {
-    this.setState({ name: text });
-  }
+    handleProvider = (text) => {
+      const { NewBucketStore } = this.props;
+      NewBucketStore.bindBucketInfo('provider', text);
+    }
 
-  handleProvider = (text) => {
-    this.setState({ provider: text });
-  }
+    handleDescription = (text) => {
+      const { NewBucketStore } = this.props;
+      NewBucketStore.bindBucketInfo('description', text);
+    }
 
-  handleDescription = (text) => {
-    this.setState({ description: text });
-  }
+    handleExpectedEnrollment = (value) => {
+      const { NewBucketStore } = this.props;
+      NewBucketStore.bindBucketInfo('expectedEnrollment', value);
+    }
 
-  handleExpectedEnrollment = (value) => {
-    this.setState({ expectedEnrollment: value });
-  }
+    handleColor = (text) => {
+      const { NewBucketStore } = this.props;
+      NewBucketStore.bindBucketInfo('color', text);
+    }
 
-  handleColor = (text) => {
-    this.setState({ color: text });
-  }
+    handleRequestSuccess = (data) => {
+      const { BucketListStore, NewBucketStore, closeModal } = this.props;
+      const { bucket, errors } = data.createBucket;
 
-  sendBucketCreateRequest = () => {
-    this.setState({ inProgress: true });
-    const {
-      name, bucketType, expectedEnrollment, color, description, provider,
-    } = this.state;
-    const hash = {
-      name, bucketType, expectedEnrollment, color, description, provider,
-    };
-    const { BucketListStore, closeModal } = this.props;
-
-    authApiClient.request(ADD_BUCKET_ITEM, hash)
-      .then((data) => {
-        BucketListStore.bindAdditionalBucket(data.createBucket.bucket);
+      if (ObjectHelper.isEmpty(errors)) {
+        BucketListStore.bindAdditionalBucket(bucket);
+        NewBucketStore.clearStore();
         closeModal();
-      }).catch((response) => {
-        console.log(response);
-      }).finally(() => {
-        this.setState({ inProgress: false });
-      });
-  }
+      } else {
+        NewBucketStore.collectRequestErrors(errors);
+      }
+    }
 
-  render() {
-    const {
-      name, provider, bucketType, color, inProgress,
-    } = this.state;
+    handleRequestFailure = (message, isAuthorizationError) => {
+      const { NewBucketStore } = this.props;
 
-    return (
-      <PopupDiv>
-        <PopupHeader>
-          Создать счет
-        </PopupHeader>
-        <PopupBody>
-          <PopupColumn>
-            <FormSelect
-              name="Тип"
-              errors={[]}
-              onInputChange={this.handleBucketType}
-            />
-            <FormInput
-              name="Название"
-              errors={[]}
-              onInputChange={this.handleName}
-            />
-            <FormInput
-              name="Провайдер"
-              errors={[]}
-              onInputChange={this.handleProvider}
-            />
-            <FormTextArea
-              name="Описание"
-              errors={[]}
-              onInputChange={this.handleDescription}
-            />
-            <FormCurrencyInput
-              name="Ожидаемые поступления"
-              errors={[]}
-              onInputChange={this.handleExpectedEnrollment}
-            />
-          </PopupColumn>
+      NewBucketStore.collectCommonErrors(message);
+      NewBucketStore.finishProgress();
+    }
 
-          <PopupColumn>
-            <ExampleBody>
-              <BucketItem
-                itemProvider={provider}
-                itemTitle={name}
-                itemType={bucketType}
-                itemActualBalance={145.23}
-                backgroundColor={color}
+    applyRequestFinalAction = () => {
+    }
+
+    sendBucketCreateRequest = () => {
+      const { NewBucketStore } = this.props;
+      NewBucketStore.startProgress();
+      const {
+        name, bucketType, expectedEnrollment, color, description, provider,
+      } = NewBucketStore.params;
+      const hash = {
+        name, bucketType, expectedEnrollment, color, description, provider,
+      };
+
+      authRequestSender(
+        ADD_BUCKET_ITEM,
+        hash,
+        this.handleRequestSuccess,
+        this.handleRequestFailure,
+        this.applyRequestFinalAction
+      )
+    }
+
+    render() {
+      const {
+        params: { name, provider, bucketType, color, inProgress, }, errors
+      } = this.props.NewBucketStore;
+
+      return (
+        <PopupDiv>
+          <PopupHeader>
+            Создать счет
+          </PopupHeader>
+          <PopupBody>
+            <PopupColumn>
+              <FormSelect
+                name="Тип"
+                errors={errors.bucketType}
+                onInputChange={this.handleBucketType}
               />
-            </ExampleBody>
+              <FormInput
+                name="Название"
+                errors={errors.name}
+                onInputChange={this.handleName}
+              />
+              <FormInput
+                name="Провайдер"
+                errors={errors.provider}
+                onInputChange={this.handleProvider}
+              />
+              <FormTextArea
+                name="Описание"
+                errors={errors.description}
+                onInputChange={this.handleDescription}
+              />
+              <FormCurrencyInput
+                name="Ожидаемые поступления"
+                errors={errors.expectedEnrollment}
+                onInputChange={this.handleExpectedEnrollment}
+              />
+            </PopupColumn>
 
-            <FormColorPicker
-              name="Цвет"
-              errors={[]}
-              onInputChange={this.handleColor}
-            />
-          </PopupColumn>
+            <PopupColumn>
+              <ExampleBody>
+                <BucketItem
+                  itemProvider={provider}
+                  itemTitle={name}
+                  itemType={bucketType}
+                  itemActualBalance={145.23}
+                  backgroundColor={color}
+                />
+              </ExampleBody>
 
-          <ButtonBlock>
-            <PrimaryBlockButton
-              sendRequest={this.sendBucketCreateRequest}
-              loading={inProgress}
-              buttonName="Создать"
-              buttonEnabled
-            />
-          </ButtonBlock>
+              <FormColorPicker
+                name="Цвет"
+                errors={[]}
+                onInputChange={this.handleColor}
+              />
+            </PopupColumn>
 
-        </PopupBody>
-      </PopupDiv>
-    );
+            <ButtonBlock>
+              <PrimaryBlockButton
+                sendRequest={this.sendBucketCreateRequest}
+                loading={inProgress}
+                buttonName="Создать"
+                buttonEnabled
+              />
+            </ButtonBlock>
+
+          </PopupBody>
+        </PopupDiv>
+      );
+    }
   }
-}));
+));
 
 export default AddBucketPopup;

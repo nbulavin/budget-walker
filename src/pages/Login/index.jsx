@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { CentralizedDiv, NarrowDiv } from './styles';
 import PrimaryBlockButton from '../../components/common/buttons/PrimaryBlockButton';
 import FormSection from '../../components/Login/FormSection';
@@ -10,7 +10,7 @@ import SIGN_IN_MUTATION from '../../graphql/LoginGql';
 import { addAuthToken } from '../../helpers/authorization';
 import { anonRequestSender } from '../../helpers/requestSender';
 import ROUTE_URLS from '../../const/routeUrls';
-import objectHelper from '../../helpers/objectHelper';
+import ObjectHelper from '../../helpers/ObjectHelper';
 
 const Login = inject('LoginStore', 'UserStore')(observer(class Login extends React.Component {
   constructor(props) {
@@ -24,7 +24,6 @@ const Login = inject('LoginStore', 'UserStore')(observer(class Login extends Rea
   componentWillUnmount() {
     const { LoginStore } = this.props;
 
-    this.setState({ loginErrors: [], redirect: false });
     LoginStore.cleanStore();
   }
 
@@ -32,20 +31,19 @@ const Login = inject('LoginStore', 'UserStore')(observer(class Login extends Rea
     const { LoginStore, UserStore } = this.props;
     const { signIn: { me, token, errors } } = data;
 
-    if (objectHelper.isEmpty(errors)) {
+    if (ObjectHelper.isEmpty(errors)) {
       UserStore.bindOption(me);
       addAuthToken(token);
       this.setState({ redirect: true });
     } else {
-      LoginStore.collectRequestErrors(errors)
-      this.setState({ loginErrors: errors });
+      LoginStore.collectRequestErrors(errors);
     }
   }
 
   handleRequestFailure = (message) => {
     const { LoginStore } = this.props;
 
-    LoginStore.collectCommonErrors([message])
+    LoginStore.collectCommonErrors([message]);
   }
 
   applyRequestFinalAction = () => {
