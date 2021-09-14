@@ -6,6 +6,7 @@ import FormTextArea from '../../../common/Form/TextArea';
 import FormCurrencyInput from '../../../common/Form/CurrencyInput';
 import FormColorPicker from '../../../common/Form/ColorPicker';
 import ObjectHelper from '../../../../helpers/ObjectHelper';
+import NewBucketStore from '../../../../stores/NewBucketStore';
 import { authRequestSender } from '../../../../helpers/requestSender';
 import PrimaryBlockButton from '../../../common/buttons/PrimaryBlockButton';
 import BucketItem from '../BucketItem';
@@ -19,76 +20,71 @@ import {
   PopupHeader,
 } from './styles';
 
-const AddBucketPopup = inject('BucketListStore', 'NewBucketStore')(observer(
+const AddBucketPopup = inject('BucketListStore', 'UserStore')(observer(
   class AddBucketPopup extends React.Component {
     constructor(props) {
       super(props);
+
+      this.store = new NewBucketStore();
     }
 
     handleBucketType = (text) => {
-      const { NewBucketStore } = this.props;
-      NewBucketStore.bindBucketInfo('bucketType', text);
+      this.store.bindBucketInfo('bucketType', text);
     }
 
     handleName = (text) => {
-      const { NewBucketStore } = this.props;
-      NewBucketStore.bindBucketInfo('name', text);
+      this.store.bindBucketInfo('name', text);
     }
 
     handleProvider = (text) => {
-      const { NewBucketStore } = this.props;
-      NewBucketStore.bindBucketInfo('provider', text);
+      this.store.bindBucketInfo('provider', text);
     }
 
     handleDescription = (text) => {
-      const { NewBucketStore } = this.props;
-      NewBucketStore.bindBucketInfo('description', text);
+      this.store.bindBucketInfo('description', text);
     }
 
     handleExpectedEnrollment = (value) => {
-      const { NewBucketStore } = this.props;
-      NewBucketStore.bindBucketInfo('expectedEnrollment', value);
+      this.store.bindBucketInfo('expectedEnrollment', value);
     }
 
     handleColor = (text) => {
-      const { NewBucketStore } = this.props;
-      NewBucketStore.bindBucketInfo('color', text);
+      this.store.bindBucketInfo('color', text);
     }
 
     handleRequestSuccess = (data) => {
-      const { BucketListStore, NewBucketStore, closeModal } = this.props;
+      const { BucketListStore, closeModal } = this.props;
       const { bucket, errors } = data.createBucket;
 
       if (ObjectHelper.isEmpty(errors)) {
         BucketListStore.bindAdditionalBucket(bucket);
-        NewBucketStore.clearStore();
+        this.store.clearStore();
         closeModal();
       } else {
-        NewBucketStore.collectRequestErrors(errors);
+        this.store.collectRequestErrors(errors);
       }
     }
 
     handleRequestFailure = (message, isAuthorizationError) => {
-      const { NewBucketStore } = this.props;
-
-      NewBucketStore.collectCommonErrors(message);
-      NewBucketStore.finishProgress();
+      this.store.collectCommonErrors(message);
+      this.store.finishProgress();
     }
 
     applyRequestFinalAction = () => {
     }
 
     sendBucketCreateRequest = () => {
-      const { NewBucketStore } = this.props;
-      NewBucketStore.startProgress();
+      const { UserStore: { authToken } } = this.props;
+      this.store.startProgress();
       const {
         name, bucketType, expectedEnrollment, color, description, provider,
-      } = NewBucketStore.params;
+      } = this.store.params;
       const hash = {
         name, bucketType, expectedEnrollment, color, description, provider,
       };
 
       authRequestSender(
+        authToken,
         ADD_BUCKET_ITEM,
         hash,
         this.handleRequestSuccess,
@@ -100,7 +96,7 @@ const AddBucketPopup = inject('BucketListStore', 'NewBucketStore')(observer(
     render() {
       const {
         params: { name, provider, bucketType, color, inProgress, }, errors
-      } = this.props.NewBucketStore;
+      } = this.store;
 
       return (
         <PopupDiv>

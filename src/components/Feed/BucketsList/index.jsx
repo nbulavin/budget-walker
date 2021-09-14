@@ -19,7 +19,7 @@ import {
 import { authRequestSender } from '../../../helpers/requestSender';
 import ROUTE_URLS from '../../../const/routeUrls';
 
-const BucketsList = inject('BucketListStore')(observer(class BucketsList extends React.Component {
+const BucketsList = inject('BucketListStore', 'UserStore')(observer(class BucketsList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -32,11 +32,15 @@ const BucketsList = inject('BucketListStore')(observer(class BucketsList extends
   }
 
   componentDidMount() {
-    authRequestSender(GET_BUCKETS_LIST,
+    const { UserStore: { authToken } } = this.props;
+    authRequestSender(
+      authToken,
+      GET_BUCKETS_LIST,
       {},
       this.handleRequestSuccess,
       this.handleRequestFailure,
-      this.applyRequestFinalAction);
+      this.applyRequestFinalAction
+    );
   }
 
   handleRequestSuccess = (data) => {

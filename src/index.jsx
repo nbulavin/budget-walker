@@ -7,16 +7,8 @@ import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 import MainStore from './stores/MainStore';
 
-const stores = {
-  MainStore,
-  UserStore: MainStore.UserStore,
-  LoginStore: MainStore.LoginStore,
-  BucketListStore: MainStore.BucketListStore,
-  NewBucketStore: MainStore.NewBucketStore,
-};
-
 ReactDOM.render(
-  <Provider {...stores}>
+  <Provider UserStore={MainStore.UserStore} BucketListStore={MainStore.BucketListStore}>
     <Router>
       <App />
     </Router>

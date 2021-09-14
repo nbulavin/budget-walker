@@ -25,6 +25,7 @@ export default class ErrorObject {
   get isAuthorizationError() {
     return !!(this.extensions && this.extensions.code && this.extensions.code === 'unauthorized');
   }
+
   createErrorObject = (rawErrorData) => {
     this.message = rawErrorData.message;
     this.path = rawErrorData.path;

@@ -1,9 +1,9 @@
 import React from 'react';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { FormDiv } from './styles';
 import FormInput from '../../common/Form/Input';
 
-const FormSection = inject('LoginStore')(observer(class FormSection extends React.Component {
+const FormSection = (observer(class FormSection extends React.Component {
   constructor(props) {
     super(props);
 
@@ -12,19 +12,19 @@ const FormSection = inject('LoginStore')(observer(class FormSection extends Reac
   }
 
   handleEmail(text) {
-    const { LoginStore } = this.props;
+    const { store } = this.props;
 
-    LoginStore.bindCredentialsEmail(text);
+    store.bindCredentialsEmail(text);
   }
 
   handlePassword(text) {
-    const { LoginStore } = this.props;
+    const { store } = this.props;
 
-    LoginStore.bindCredentialsPassword(text);
+    store.bindCredentialsPassword(text);
   }
 
   render() {
-    const { errors } = this.props.LoginStore
+    const { errors } = this.props.store
     return (
       <FormDiv>
         <FormInput

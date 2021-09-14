@@ -4,7 +4,9 @@ export default class UserStore {
   constructor() {
     makeObservable(this, {
       params: observable,
-      bindOption: action,
+      authToken: observable,
+      bindAuthToken: action,
+      bindUserInfo: action
     });
   }
 
@@ -14,9 +16,20 @@ export default class UserStore {
     email: '',
   };
 
-  bindOption = (info) => {
+  authToken = null;
+
+  bindUserInfo = (info) => {
     this.params.firstName = info.firstName;
     this.params.lastName = info.lastName;
     this.params.email = info.email;
   };
+
+  bindAuthToken = (token) => {
+    this.authToken = token;
+  }
+
+  clearAuthToken = () => {
+    this.authToken = null;
+  }
+
 }

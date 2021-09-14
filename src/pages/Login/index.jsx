@@ -11,53 +11,52 @@ import { addAuthToken } from '../../helpers/authorization';
 import { anonRequestSender } from '../../helpers/requestSender';
 import ROUTE_URLS from '../../const/routeUrls';
 import ObjectHelper from '../../helpers/ObjectHelper';
+import LoginStore from '../../stores/LoginStore';
 
-const Login = inject('LoginStore', 'UserStore')(observer(class Login extends React.Component {
+const Login = inject('UserStore')(observer(class Login extends React.Component {
   constructor(props) {
     super(props);
 
+    this.store = new LoginStore();
     this.state = {
       redirect: false,
     };
   }
 
   componentWillUnmount() {
-    const { LoginStore } = this.props;
-
-    LoginStore.cleanStore();
+    this.store.cleanStore();
   }
 
   handleRequestSuccess = (data) => {
-    const { LoginStore, UserStore } = this.props;
+    const { UserStore } = this.props;
     const { signIn: { me, token, errors } } = data;
 
     if (ObjectHelper.isEmpty(errors)) {
-      UserStore.bindOption(me);
+      UserStore.bindUserInfo(me);
+      UserStore.bindAuthToken(token);
       addAuthToken(token);
       this.setState({ redirect: true });
     } else {
-      LoginStore.collectRequestErrors(errors);
+      this.store.collectRequestErrors(errors);
     }
   }
 
   handleRequestFailure = (message) => {
-    const { LoginStore } = this.props;
-
-    LoginStore.collectCommonErrors([message]);
+    this.store.collectCommonErrors([message]);
   }
 
   applyRequestFinalAction = () => {
     const { redirect } = this.state;
-    const { LoginStore, history } = this.props;
+    const { history } = this.props;
 
-    LoginStore.finishProgress();
+    this.store.finishProgress();
     if (redirect === true) {
       history.push(ROUTE_URLS.feed);
     }
   }
 
   sendRequest = () => {
-    const { startProgress, params: { email, password } } = this.props.LoginStore;
+    const { startProgress, params: { email, password } } = this.store;
 
     startProgress();
     const hash = { email, password };
@@ -69,14 +68,14 @@ const Login = inject('LoginStore', 'UserStore')(observer(class Login extends Rea
   }
 
   render() {
-    const { errors, params: { email, password, inProgress } } = this.props.LoginStore;
+    const { errors, params: { email, password, inProgress } } = this.store;
     const buttonEnabled = (email !== '' && password !== '' && !inProgress);
 
     return (
       <CentralizedDiv>
         <BackgroundTitle text="Войти" />
         <NarrowDiv>
-          <FormSection />
+          <FormSection store={this.store} />
           <Errors errorsArray={errors.common} />
           <PrimaryBlockButton
             sendRequest={this.sendRequest}

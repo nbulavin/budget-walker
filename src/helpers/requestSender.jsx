@@ -13,8 +13,18 @@ export function anonRequestSender(requestSchema, requestData, successCallback, f
     });
 }
 
-export function authRequestSender(requestSchema, requestData, successCallback, failureCallback, finallyCallback) {
-  authApiClient.request(requestSchema, requestData)
+export function authRequestSender(
+  authToken,
+  requestSchema,
+  requestData,
+  successCallback,
+  failureCallback,
+  finallyCallback
+) {
+  const client = apiClient;
+  client.setHeader('Authorization', authToken);
+
+  client.request(requestSchema, requestData)
     .then((data) => {
       successCallback(data);
     }).catch((response) => {
