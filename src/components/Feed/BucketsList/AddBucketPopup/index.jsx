@@ -74,7 +74,6 @@ const AddBucketPopup = inject('BucketListStore', 'UserStore')(observer(
     }
 
     sendBucketCreateRequest = () => {
-      const { UserStore: { authToken } } = this.props;
       this.store.startProgress();
       const {
         name, bucketType, expectedEnrollment, color, description, provider,
@@ -84,7 +83,6 @@ const AddBucketPopup = inject('BucketListStore', 'UserStore')(observer(
       };
 
       authRequestSender(
-        authToken,
         ADD_BUCKET_ITEM,
         hash,
         this.handleRequestSuccess,

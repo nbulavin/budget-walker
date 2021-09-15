@@ -6,7 +6,7 @@ export default class UserStore {
       params: observable,
       authToken: observable,
       bindAuthToken: action,
-      bindUserInfo: action
+      bindUserInfo: action,
     });
   }
 
@@ -31,5 +31,4 @@ export default class UserStore {
   clearAuthToken = () => {
     this.authToken = null;
   }
-
 }

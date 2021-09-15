@@ -6,16 +6,14 @@ import AppDiv from './styles';
 import Placeholder from './Placeholder';
 import Login from './Login';
 import Feed from './Feed';
-import { isLoggedIn, showAuthToken } from '../helpers/authorization';
 import ROUTE_URLS from '../const/routeUrls';
 import stringHelper from '../helpers/stringHelper';
 import GET_USER_ME from '../graphql/AppGql';
-import { apiClient } from '../helpers/graphQlClient';
-import ErrorObject from '../helpers/ErrorObject';
 import StorageHelper from '../helpers/StorageHelper';
+import { authRequestSender } from '../helpers/requestSender';
 
 const PrivateRoute = (props) => {
-  if (!isLoggedIn()) return <Redirect to={ROUTE_URLS.login} />;
+  if (!StorageHelper.isUserLoggedIn) return <Redirect to={ROUTE_URLS.login} />;
   return <Route {...props} />;
 };
 
@@ -30,44 +28,37 @@ const App = inject('UserStore')(observer(class App extends React.Component {
 
   componentDidMount() {
     console.log('start mounting')
-    const tokenInStorage = showAuthToken();
+    const tokenInStorage = StorageHelper.authToken;
     if (stringHelper.isPresent(tokenInStorage)) {
-      const client = apiClient
-      client.setHeader('Authorization', tokenInStorage)
-      client.request(GET_USER_ME)
-        .then((data) => {
-          this.props.UserStore.bindAuthToken(tokenInStorage);
-          this.props.UserStore.bindUserInfo(data.me);
-        }).catch((response) => {
-          let error;
-          if (response.response?.errors[0]) {
-            error = new ErrorObject(response.response.errors[0]);
-          } else {
-            error = {
-              message: response.message,
-              isAuthorizationError: true,
-            };
-          }
-
-          const { isAuthorizationError } = error;
-          if (isAuthorizationError) {
-            StorageHelper.clearAuthToken();
-            this.props.UserStore.clearAuthToken();
-          }
-        }).finally(() => {
-          this.setState({ inProgress: false });
-          console.log('finish mounting')
-        });
-
-      // this.props.UserStore.bindAuthToken(tokenInStorage);
+      authRequestSender(
+        GET_USER_ME,
+        {},
+        this.handleRequestSuccess,
+        this.handleRequestFailure,
+        this.applyRequestFinalAction
+      )
     } else {
       this.setState({ inProgress: false });
       console.log('finish mounting')
     }
+  }
 
-    // this.setState({ inProgress: false });
+  handleRequestSuccess = (data) => {
+    const { me } = data;
+    this.props.UserStore.bindAuthToken(me.authorizationToken);
+    this.props.UserStore.bindUserInfo(me);
+  }
 
-    // console.log('finish mounting')
+  handleRequestFailure = (message, isAuthorizationError) => {
+    if (isAuthorizationError) {
+      StorageHelper.clearAuthToken();
+      this.props.UserStore.clearAuthToken();
+    }
+  }
+
+  applyRequestFinalAction = () => {
+    this.setState({ inProgress: false });
+    console.log('finish mounting')
   }
 
   render() {
@@ -86,7 +77,7 @@ const App = inject('UserStore')(observer(class App extends React.Component {
             <Route path={ROUTE_URLS.login} component={Login} />
             <Route exact path={ROUTE_URLS.mainPage}>
               {
-                isLoggedIn() ? <Redirect to={ROUTE_URLS.feed} /> : <Redirect to={ROUTE_URLS.login} />
+                StorageHelper.isUserLoggedIn ? <Redirect to={ROUTE_URLS.feed} /> : <Redirect to={ROUTE_URLS.login} />
               }
             </Route>
             <Route>

@@ -32,9 +32,7 @@ const BucketsList = inject('BucketListStore', 'UserStore')(observer(class Bucket
   }
 
   componentDidMount() {
-    const { UserStore: { authToken } } = this.props;
     authRequestSender(
-      authToken,
       GET_BUCKETS_LIST,
       {},
       this.handleRequestSuccess,

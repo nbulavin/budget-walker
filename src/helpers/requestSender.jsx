@@ -1,8 +1,19 @@
-import { apiClient, authApiClient } from './graphQlClient';
+import { GraphQLClient } from 'graphql-request';
 import ErrorObject from './ErrorObject';
+import StorageHelper from './StorageHelper';
 
-export function anonRequestSender(requestSchema, requestData, successCallback, failureCallback, finallyCallback) {
-  apiClient.request(requestSchema, requestData)
+const API_URL = 'http://localhost:3001/graphql';
+
+export function anonRequestSender(
+  requestSchema,
+  requestData,
+  successCallback,
+  failureCallback,
+  finallyCallback
+) {
+  const client = new GraphQLClient(API_URL)
+
+  client.request(requestSchema, requestData)
     .then((data) => {
       successCallback(data);
     }).catch((response) => {
@@ -14,15 +25,13 @@ export function anonRequestSender(requestSchema, requestData, successCallback, f
 }
 
 export function authRequestSender(
-  authToken,
   requestSchema,
   requestData,
   successCallback,
   failureCallback,
   finallyCallback
 ) {
-  const client = apiClient;
-  client.setHeader('Authorization', authToken);
+  const client = new GraphQLClient(API_URL, { headers: { Authorization: StorageHelper.authToken } })
 
   client.request(requestSchema, requestData)
     .then((data) => {

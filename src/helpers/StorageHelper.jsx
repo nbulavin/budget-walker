@@ -2,20 +2,18 @@ import stringHelper from './stringHelper';
 
 class StorageHelper {
 
-  addAuthToken = (token) => (localStorage.setItem('Authorization', token));
+  addAuthToken = (token) => (window.localStorage.setItem('Authorization', token));
 
-  getAuthToken = () => {
-    return localStorage.getItem('Authorization');
+  get authToken() {
+    return window.localStorage.getItem('Authorization');
   }
 
-  isUserLoggedIn = () => {
-    const authToken = this.getAuthToken();
+  get isUserLoggedIn() {
+    const authToken = this.authToken;
     return !stringHelper.isEmpty(authToken);
   }
 
-  clearAuthToken = () => {
-    localStorage.removeItem('Authorization');
-  }
+  clearAuthToken = () => (window.localStorage.removeItem('Authorization'));
 }
 
 export default new StorageHelper();

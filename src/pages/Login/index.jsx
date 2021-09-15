@@ -7,7 +7,7 @@ import FormSection from '../../components/Login/FormSection';
 import BackgroundTitle from '../../components/common/BackgroundTitle';
 import Errors from '../../components/Login/Errors';
 import SIGN_IN_MUTATION from '../../graphql/LoginGql';
-import { addAuthToken } from '../../helpers/authorization';
+import StorageHelper from '../../helpers/StorageHelper';
 import { anonRequestSender } from '../../helpers/requestSender';
 import ROUTE_URLS from '../../const/routeUrls';
 import ObjectHelper from '../../helpers/ObjectHelper';
@@ -34,7 +34,7 @@ const Login = inject('UserStore')(observer(class Login extends React.Component {
     if (ObjectHelper.isEmpty(errors)) {
       UserStore.bindUserInfo(me);
       UserStore.bindAuthToken(token);
-      addAuthToken(token);
+      StorageHelper.addAuthToken(token);
       this.setState({ redirect: true });
     } else {
       this.store.collectRequestErrors(errors);
