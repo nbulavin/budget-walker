@@ -104,6 +104,7 @@ const AddBucketPopup = inject('BucketListStore', 'UserStore')(observer(
         },
         errors,
       } = this.store;
+      const buttonEnabled = (name !== '' && bucketType !== null && !inProgress);
 
       return (
         <PopupDiv>
@@ -162,7 +163,7 @@ const AddBucketPopup = inject('BucketListStore', 'UserStore')(observer(
                 sendRequest={this.sendBucketCreateRequest}
                 loading={inProgress}
                 buttonName="Создать"
-                buttonEnabled
+                buttonEnabled={buttonEnabled}
               />
             </ButtonBlock>
 

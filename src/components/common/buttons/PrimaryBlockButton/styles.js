@@ -15,6 +15,7 @@ export const StyledButton = styled.button`
   
   &:disabled {
     background-color: ${COLORS.primaryButtonBackgroundDisabled};
+    cursor: initial;
   }
 
   ${(props) => props.disabled === false && `
