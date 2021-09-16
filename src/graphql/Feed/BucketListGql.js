@@ -39,6 +39,7 @@ export const ADD_BUCKET_ITEM = gql`
         bucketType
         color
         provider
+        currentBalance
       }
       errors
     }

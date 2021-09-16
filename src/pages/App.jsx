@@ -2,12 +2,12 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ThreeDots } from '@agney/react-loading';
-import AppDiv from './styles';
+import { AppDiv, LoadingDiv } from './styles';
 import Placeholder from './Placeholder';
 import Login from './Login';
 import Feed from './Feed';
 import ROUTE_URLS from '../const/routeUrls';
-import stringHelper from '../helpers/stringHelper';
+import StringHelper from '../helpers/StringHelper';
 import GET_USER_ME from '../graphql/AppGql';
 import StorageHelper from '../helpers/StorageHelper';
 import { authRequestSender } from '../helpers/requestSender';
@@ -27,26 +27,26 @@ const App = inject('UserStore')(observer(class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('start mounting')
     const tokenInStorage = StorageHelper.authToken;
-    if (stringHelper.isPresent(tokenInStorage)) {
+    if (StringHelper.isPresent(tokenInStorage)) {
       authRequestSender(
         GET_USER_ME,
         {},
         this.handleRequestSuccess,
         this.handleRequestFailure,
-        this.applyRequestFinalAction
-      )
+        this.applyRequestFinalAction,
+      );
     } else {
       this.setState({ inProgress: false });
-      console.log('finish mounting')
     }
   }
 
   handleRequestSuccess = (data) => {
     const { me } = data;
-    this.props.UserStore.bindAuthToken(me.authorizationToken);
-    this.props.UserStore.bindUserInfo(me);
+    const { bindAuthToken, bindUserInfo } = this.props.UserStore;
+
+    bindAuthToken(me.authorizationToken);
+    bindUserInfo(me);
   }
 
   handleRequestFailure = (message, isAuthorizationError) => {
@@ -58,7 +58,6 @@ const App = inject('UserStore')(observer(class App extends React.Component {
 
   applyRequestFinalAction = () => {
     this.setState({ inProgress: false });
-    console.log('finish mounting')
   }
 
   render() {
@@ -68,7 +67,9 @@ const App = inject('UserStore')(observer(class App extends React.Component {
       <AppDiv>
         {inProgress === true
         && (
-          <ThreeDots width="100" />
+          <LoadingDiv>
+            <ThreeDots width="100" />
+          </LoadingDiv>
         )}
         {inProgress === false
         && (

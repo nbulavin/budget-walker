@@ -37,7 +37,7 @@ class FormInput extends React.Component {
         <InputDiv>
           <StyledFormInput
             placeholder={name}
-            type={predefinedType ?? "text"}
+            type={predefinedType ?? 'text'}
             onChange={this.handleInputChange}
             inError={errors?.length > 0}
           />

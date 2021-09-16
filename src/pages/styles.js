@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import COLORS from '../const/colors';
 
-const AppDiv = styled.div`
+export const AppDiv = styled.div`
   text-align: center;
   background-color: ${COLORS.appBackground};
   min-height: 100vh;
@@ -13,4 +13,6 @@ const AppDiv = styled.div`
   color: black;
 `;
 
-export default AppDiv;
+export const LoadingDiv = styled.div`
+  margin: auto;
+`;

@@ -1,4 +1,9 @@
-import { action, observable, computed, makeObservable } from 'mobx';
+import {
+  action,
+  observable,
+  computed,
+  makeObservable,
+} from 'mobx';
 
 export default class ErrorObject {
   constructor(rawErrorData) {

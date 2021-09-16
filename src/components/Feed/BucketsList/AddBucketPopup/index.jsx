@@ -66,8 +66,10 @@ const AddBucketPopup = inject('BucketListStore', 'UserStore')(observer(
     }
 
     handleRequestFailure = (message, isAuthorizationError) => {
-      this.store.collectCommonErrors(message);
-      this.store.finishProgress();
+      const { collectCommonErrors, finishProgress } = this.store;
+
+      collectCommonErrors(message);
+      finishProgress();
     }
 
     applyRequestFinalAction = () => {
@@ -87,13 +89,20 @@ const AddBucketPopup = inject('BucketListStore', 'UserStore')(observer(
         hash,
         this.handleRequestSuccess,
         this.handleRequestFailure,
-        this.applyRequestFinalAction
-      )
+        this.applyRequestFinalAction,
+      );
     }
 
     render() {
       const {
-        params: { name, provider, bucketType, color, inProgress, }, errors
+        params: {
+          name,
+          provider,
+          bucketType,
+          color,
+          inProgress,
+        },
+        errors,
       } = this.store;
 
       return (
@@ -161,7 +170,7 @@ const AddBucketPopup = inject('BucketListStore', 'UserStore')(observer(
         </PopupDiv>
       );
     }
-  }
+  },
 ));
 
 export default AddBucketPopup;

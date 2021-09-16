@@ -24,19 +24,20 @@ const FormSection = (observer(class FormSection extends React.Component {
   }
 
   render() {
-    const { errors } = this.props.store
+    const { errors } = this.props.store;
+
     return (
       <FormDiv>
         <FormInput
           name="Email"
           errors={errors.email}
-          predefinedType={"email"}
+          predefinedType="email"
           onInputChange={this.handleEmail}
         />
         <FormInput
           name="Пароль"
           errors={errors.password}
-          predefinedType={"password"}
+          predefinedType="password"
           onInputChange={this.handlePassword}
         />
       </FormDiv>

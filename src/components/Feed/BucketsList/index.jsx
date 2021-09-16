@@ -37,7 +37,7 @@ const BucketsList = inject('BucketListStore', 'UserStore')(observer(class Bucket
       {},
       this.handleRequestSuccess,
       this.handleRequestFailure,
-      this.applyRequestFinalAction
+      this.applyRequestFinalAction,
     );
   }
 
@@ -49,7 +49,7 @@ const BucketsList = inject('BucketListStore', 'UserStore')(observer(class Bucket
 
   handleRequestFailure = (message, isAuthorizationError) => {
     if (isAuthorizationError === true) {
-      this.props.history.push(ROUTE_URLS.login)
+      this.props.history.push(ROUTE_URLS.login);
     }
     this.setState({ listErrors: [message] });
   }
@@ -104,7 +104,9 @@ const BucketsList = inject('BucketListStore', 'UserStore')(observer(class Bucket
         )}
         <ListFooter>
           <ListFooterText>
-            Всего счетов: {totalItemsCount}
+            Всего счетов:
+            {' '}
+            {totalItemsCount}
           </ListFooterText>
           <TextButton buttonName={expandingButtonText} onClickAction={this.toggleListExpanding} />
         </ListFooter>

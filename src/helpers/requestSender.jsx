@@ -9,9 +9,9 @@ export function anonRequestSender(
   requestData,
   successCallback,
   failureCallback,
-  finallyCallback
+  finallyCallback,
 ) {
-  const client = new GraphQLClient(API_URL)
+  const client = new GraphQLClient(API_URL);
 
   client.request(requestSchema, requestData)
     .then((data) => {
@@ -29,9 +29,9 @@ export function authRequestSender(
   requestData,
   successCallback,
   failureCallback,
-  finallyCallback
+  finallyCallback,
 ) {
-  const client = new GraphQLClient(API_URL, { headers: { Authorization: StorageHelper.authToken } })
+  const client = new GraphQLClient(API_URL, { headers: { Authorization: StorageHelper.authToken } });
 
   client.request(requestSchema, requestData)
     .then((data) => {
